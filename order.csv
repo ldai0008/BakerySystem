@@ -1,0 +1,10 @@
+store id,order id,staff id,name of  items,quantity,price,total amount,date,time,customer,status,customer number,last modified by,lastModifiedDate,lastModifiedTime
+1,000001-102020,1,barros Luco Sandwich,3,1.0,3.0,2020-10-14,17:09:22,ee,Confirmed,,1,2020-10-14,17:09:22
+1,000002-102020,1,barros Luco Sandwich,2,1.0,2.0,2020-10-14,17:10:30,dd,Confirmed,,1,2020-10-14,17:10:30
+1,000003-102020,1,barros Luco Sandwich|white bread,2|2,1.0|5.0,12.0,2020-10-14,17:10:42,dd,Confirmed,,1,2020-10-14,17:10:42
+1,000004-102020,1,cucumber  Sandwich|white bread,2|2,2.0|5.0,14.0,2020-10-14,17:12:41,ss,Confirmed,,1,2020-10-14,17:12:41
+1,000005-102020,1,plain pancake,5,3.0,15.0,2020-10-14,17:12:53,zoe,Confirmed,,1,2020-10-14,17:12:53
+1,000006-102020,1,texas brisket sandwich,2,2.5,5.0,2020-10-17,22:18:50.1454773,ruibin,Confirmed,,1,2020-10-17,22:18:50.1454773
+10,000007-102020,0,texas brisket sandwich,3,2.5,7.5,2020-10-19,21:35:12.9150988,zoe,Confirmed,,0,2020-10-19,21:35:12.9150988
+3,000008-102020,0,ice coffee|Cappuccino,5|3,10.0|12.0,86.0,2020-10-20,13:45:52.3589737,kk,Confirmed,,0,2020-10-20,13:45:52.3589737
+3,000009-102020,0,roast coffee beans,1,10.0,10.0,2020-10-20,16:42:32.7828069,zoe,Confirmed,,0,2020-10-20,16:42:32.7828069
