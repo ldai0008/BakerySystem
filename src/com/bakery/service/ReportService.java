@@ -347,6 +347,7 @@ public class ReportService {
     }
 
     public String getWeek(String dates) {
+        String strWeek = "";
 
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
@@ -363,16 +364,33 @@ public class ReportService {
         if (w == 0) {
             w = 7;
         }
-
-        return switch (w) {
-            case 1 -> "Monday";
-            case 2 -> "Tuesday";
-            case 3 -> "Wednesday";
-            case 4 -> "Thursday";
-            case 5 -> "Friday";
-            case 6 -> "Saturday";
-            case 7 -> "Sunday";
-            default -> "";
+        switch (w) {
+            case 1 :
+                strWeek = "Monday";
+                break;
+            case 2 :
+                strWeek = "Tuesday";
+                break;
+            case 3 :
+                strWeek = "Wednesday";
+                break;
+            case 4 :
+                strWeek = "Thursday";
+                break;
+            case 5 :
+                strWeek = "Friday";
+                break;
+            case 6 :
+                strWeek = "Saturday";
+                break;
+            case 7 :
+                strWeek = "Sunday";
+                break;
+            default :
+                strWeek = "";
         };
+
+
+        return strWeek;
     }
 }
