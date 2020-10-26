@@ -43,16 +43,20 @@ public class OptionService {
         String currentUserName = currentUser.getUserName();
         String currentUserType = currentUser.getUserType();
         while (isContinue) {
-            BakeryUtils.displayHomeScreen(currentUserName, currentUserType);
-            String selection = console.nextLine();
+//            BakeryUtils.displayHomeScreen(currentUserName, currentUserType);
+            String selection = "";
             if (currentUserType.equals("Staff") || currentUserType.equals("Manager")) {
+                BakeryUtils.displayHomeScreen(currentUserName, currentUserType);
+                selection = console.nextLine();
                 switch (selection) {
                     case "1":
                         bakeryService.createNewOrder(bakerySystem);
                         break;
                     case "0":
                         isContinue = false;
-                        break;
+                        System.out.println("good bye!!!");
+                        System.exit(1);
+//                        break;
                     default:
                         System.out.println("!Error: Your selection is not valid!");
                         System.out.println(
@@ -60,6 +64,8 @@ public class OptionService {
                 }
             } else if (currentUserType.equals("Owner")) {
                 Store store = bakeryService.chooseStore(bakery);
+                BakeryUtils.displayHomeScreen(currentUserName, currentUserType);
+                selection = console.nextLine();
                 switch (selection) {
                     case "1":
                         bakeryService.createNewOrder(bakerySystem);
@@ -69,7 +75,9 @@ public class OptionService {
                         break;
                     case "0":
                         isContinue = false;
-                        break;
+                        System.out.println("good bye!!!");
+                        System.exit(1);
+//                        break;
                     default:
                         System.out.println("!Error: Your selection is not valid!");
                         System.out.println(
@@ -79,7 +87,9 @@ public class OptionService {
                 switch (selection) {
                     case "0":
                         isContinue = false;
-                        break;
+                        System.out.println("good bye!!!");
+                        System.exit(1);
+//                        break;
                     default:
                         System.out.println("!Error: Your selection is not valid!");
                         System.out.println(
