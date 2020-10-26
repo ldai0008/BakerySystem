@@ -42,6 +42,8 @@ public class OptionService {
         Scanner console = new Scanner(System.in);
         String currentUserName = currentUser.getUserName();
         String currentUserType = currentUser.getUserType();
+        Store store = new Store();
+        boolean firstLogin = true;
         while (isContinue) {
 //            BakeryUtils.displayHomeScreen(currentUserName, currentUserType);
             String selection = "";
@@ -52,6 +54,8 @@ public class OptionService {
                     case "1":
                         bakeryService.createNewOrder(bakerySystem);
                         break;
+                    case "2":
+                        bakeryService.createNewAdvanceOrder(bakerySystem);
                     case "0":
                         isContinue = false;
                         System.out.println("good bye!!!");
@@ -63,12 +67,18 @@ public class OptionService {
                                 "****************************************\n" + "Please select the correct option.");
                 }
             } else if (currentUserType.equals("Owner")) {
-                Store store = bakeryService.chooseStore(bakery);
+                if (firstLogin) {
+                    store = bakeryService.chooseStore(bakery);
+                    firstLogin = false;
+                }
                 BakeryUtils.displayHomeScreen(currentUserName, currentUserType);
                 selection = console.nextLine();
                 switch (selection) {
                     case "1":
                         bakeryService.createNewOrder(bakerySystem);
+                        break;
+                    case "2":
+                        bakeryService.createNewAdvanceOrder(bakerySystem);
                         break;
                     case "8":
                         reportService.generateReport(currentUser, bakerySystem, store);

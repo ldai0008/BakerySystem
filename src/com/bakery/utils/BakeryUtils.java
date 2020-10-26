@@ -20,6 +20,23 @@ public class BakeryUtils {
         System.out.println("=======================================");
     }
 
+    public static String displayCreateAdvanceOrderOption() {
+        String option;
+        boolean optionCheck = true;
+        do {
+            if (!optionCheck) {
+                System.out.println("!Error: Your selection is not valid!");
+            }
+            System.out.println("****************************************\n"
+                    + "-- Please select one option by entering the number:\n" +
+                    "1. Change the item quantity\n" + "2. Confirm\n" + "3. Back to home screen");
+            Scanner console = new Scanner(System.in);
+            option = console.nextLine();
+            optionCheck = option.equals("1") || option.equals("2") || option.equals("3");
+        } while (!optionCheck);
+        return option;
+    }
+
     public static String displayCreateOrderOption() {
         String option;
         boolean optionCheck = true;

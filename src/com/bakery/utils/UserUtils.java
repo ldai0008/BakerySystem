@@ -18,7 +18,7 @@ public class UserUtils {
         for (String user : users) {
             String[] u = user.split(",");
 //            if ((Integer.parseInt(u[1]) == Integer.parseInt(account) || u[2].equals(account))
-            if ((u[1].toLowerCase().equals(account.toLowerCase()) || u[2].equals(account))
+            if ((u[0].toLowerCase().equals(account.toLowerCase()) || u[2].equals(account))
                     && u[3].equals(password)) {
                 int userId = Integer.parseInt(u[0]);
                 User aUser = new User(userId, u[1], u[2], u[3], u[4], u[5], u[6], u[7], u[8]);

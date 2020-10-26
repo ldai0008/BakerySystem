@@ -88,6 +88,92 @@ public class BakeryService {
 		}
 		return totalCost;
 	}
+	public void createNewAdvanceOrder(BakerySystem bakerySystem) {
+		String itemName;
+		int itemQuantity = 0;
+		boolean quantityCheck = true;
+		Order aOrder = new Order();
+		String option;
+		FoodItem aFoodItem = new FoodItem();
+		do {
+			BakeryUtils.displayBakeShop();
+			System.out.println("            Total cost:" + aOrder.getTotalCost());
+			for (FoodItem foodItem : bakerySystem.getFoodList())
+			{
+				if (foodItem.getFoodItemName().equals("roast coffee beans")){
+					aFoodItem = foodItem;
+					break;
+				}
+			}
+			aOrder.getQuantity().put(aFoodItem, itemQuantity);
+			String itemNumber = aFoodItem.getItemNumber();
+			displayCurrentItem(aOrder);
+
+			do {
+				if (!quantityCheck) {
+					System.out.println("!Error: The item quantity is not valid!");
+					System.out.println("The current quantity in inventory for this item is:");
+					System.out.println(getFoodItemQuantity(itemNumber, bakerySystem.getBakery()));
+					System.out.println(
+							"****************************************\n" + "Please try enter the item quantity again.");
+				} else
+					System.out.println("-- Please enter the item's quantity:");
+				Scanner console = new Scanner(System.in);
+				String s = console.nextLine();
+				quantityCheck = validateQuantityCheck(itemNumber, s, bakerySystem.getBakery());
+				if (quantityCheck) {
+					itemQuantity = Integer.parseInt(s);
+				}
+			} while (!quantityCheck);
+
+			aOrder.getQuantity().put(aFoodItem, itemQuantity);
+			aOrder.setTotalCost(calTotalCost(aOrder, bakerySystem));
+			BakeryUtils.displayBakeShop();
+			displayCurrentItem(aOrder);
+			System.out.println("            Total cost:" + aOrder.getTotalCost());
+			option = BakeryUtils.displayCreateAdvanceOrderOption();
+		} while (option.equals("1"));
+
+		if (option.equals("2")) {
+			Scanner console = new Scanner(System.in);
+			System.out.println("--  Enter the name of the customer:");
+			String name = console.nextLine();
+			System.out.println("--  Enter the phone number of the customer:");
+			String phoneNumber = console.nextLine();
+			String date = getDate();
+			String time = getTime();
+			aOrder.setOrderDate(date);
+			aOrder.setOrderTime(time);
+			aOrder.setLastModifiedBy(String
+					.valueOf(bakerySystem.getBakery().getListOfStore().get(0).getListOfUser().get(0).getUserId()));
+			aOrder.setLastModifiedDate(date);
+			aOrder.setLastModifiedTime(time);
+			aOrder.setLastModifiedBy(String
+					.valueOf(bakerySystem.getBakery().getListOfStore().get(0).getListOfUser().get(0).getUserId()));
+			aOrder.setOrderStatus("Confirmed");
+			aOrder.setNameOfCustomer(name);
+			aOrder.setCustomerPhone(phoneNumber);
+			bakerySystem.getBakery().getListOfStore().get(0).getListOfOrder().add(aOrder);
+			String orderId = createOrderId(aOrder);
+			aOrder.setOrderId(orderId);
+			addOrderInDB(aOrder, bakerySystem.getBakery());
+			BakeryUtils.displayBakeShop();
+			displayCurrentItem(aOrder);
+			System.out.println("            Total cost:" + aOrder.getTotalCost());
+			System.out.println("****************************************");
+			System.out.println("Order id: " + orderId);
+			System.out.println("Order date: " + date);
+			System.out.println("Order time: " + time);
+			System.out.println("Store id: " + bakerySystem.getBakery().getListOfStore().get(0).getStoreId());
+			System.out.println("Employee id: "
+					+ bakerySystem.getBakery().getListOfStore().get(0).getListOfUser().get(0).getUserId());
+			System.out.println("Customer name: " + name);
+			System.out.println("Customer phone number: " + phoneNumber);
+			System.out.println("****************************************");
+			System.out.println("The order has been successfully created! ");
+		}
+
+	}
 
 	public void createNewOrder(BakerySystem bakerySystem) {
 		String itemName;
