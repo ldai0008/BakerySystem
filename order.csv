@@ -20,3 +20,5 @@ store id,order id,staff id,name of  items,quantity,price,total amount,date,time,
 1,000019-102020,1,roast coffee beans,4,10.0,40.0,2020-10-27,12:01:44.4961013,Michael,Confirmed,0448273142,1,2020-10-27,12:01:44.4961013
 3,000020-102020,0,texas brisket sandwich,2,2.5,5.0,2020-10-27,12:04:47.0477678,Kamran,Confirmed,,0,2020-10-27,12:04:47.0477678
 3,000021-102020,0,roast coffee beans,1,10.0,10.0,2020-10-27,12:05:53.3805088,Hammer,Confirmed,098192311,0,2020-10-27,12:05:53.3805088
+3,000022-102020,0,texas brisket sandwich|roast coffee beans,2|2,2.5|10.0,25.0,2020-10-27,16:32:52.0938161,2,Confirmed,,0,2020-10-27,16:32:52.0938161
+3,000023-102020,0,texas brisket sandwich,5,2.5,12.5,2020-10-27,17:28:59.1781635,umer,Confirmed,,0,2020-10-27,17:28:59.1781635

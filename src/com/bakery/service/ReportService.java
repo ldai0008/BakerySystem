@@ -98,21 +98,25 @@ public class ReportService {
         return Integer.parseInt(barForLowInventory);
     }
 
-    public void generateReportOfDaysMadeTheMostSold(){
+    public void generateReportOfDaysMadeTheMostSold(String storeId){
         List<String> orders = FileUtils.readFile("order.csv");
         Map<String, Double> daysSold = originDays();
         for (String order: orders){
             String[] quantities = order.split(",");
             String amount = quantities[6];
             String date = quantities[7];
-            if (checkIfInLastMonth(date)) {
-                String day = getWeek(date);
-                for (Map.Entry<String, Double> entry : daysSold.entrySet()) {
-                    if (entry.getKey().equals(day)) {
-                        double currentTotal = entry.getValue();
-                        double finalTotal = currentTotal + Double.parseDouble(amount);
-                        daysSold.put(day, finalTotal);
-                        break;
+            String orderStoreId = quantities[0];
+
+            if (storeId.trim().equalsIgnoreCase(orderStoreId)) {
+                if (checkIfInLastMonth(date)) {
+                    String day = getWeek(date);
+                    for (Map.Entry<String, Double> entry : daysSold.entrySet()) {
+                        if (entry.getKey().equals(day)) {
+                            double currentTotal = entry.getValue();
+                            double finalTotal = currentTotal + Double.parseDouble(amount);
+                            daysSold.put(day, finalTotal);
+                            break;
+                        }
                     }
                 }
             }
@@ -156,6 +160,7 @@ public class ReportService {
                         System.out.printf("%-9s", itemQuantity);
                         System.out.println();
                     }
+
                 }
             }
         }
@@ -163,7 +168,7 @@ public class ReportService {
     }
 
 
-    public void generateReportOfSoldCoffee(List<FoodItem> foodList){
+    public void generateReportOfSoldCoffee(List<FoodItem> foodList, String storeId){
         List<String> orders = FileUtils.readFile("order.csv");
         int totalNum = 0;
         for (String order: orders){
@@ -171,61 +176,72 @@ public class ReportService {
             String[] items = quantities[3].split("\\|");
             String[] quantity = quantities[4].split("\\|");
             String date = quantities[7];
-            if (checkIfInLastMonth(date)) {
-                int index = 0;
-                for (String item : items) {
-                    boolean foodCheck = false;
-                    for (FoodItem foodItem : foodList) {
-                        if (foodItem.getFoodItemName().equals(item.strip()) && foodItem.getFoodType().equals("Coffee")) {
-                            foodCheck = true;
-                            break;
+            String orderStoreId = quantities[0];
+
+            if (orderStoreId.trim().equalsIgnoreCase(storeId.trim())) {
+                if (checkIfInLastMonth(date)) {
+                    int index = 0;
+                    for (String item : items) {
+                        boolean foodCheck = false;
+                        for (FoodItem foodItem : foodList) {
+                            if (foodItem.getFoodItemName().equals(item.strip()) && foodItem.getFoodType().equals("Coffee")) {
+                                foodCheck = true;
+                                break;
+                            }
                         }
+                        if (foodCheck) {
+                            totalNum += Integer.parseInt(quantity[index]);
+                        }
+                        index += 1;
                     }
-                    if (foodCheck) {
-                        totalNum += Integer.parseInt(quantity[index]);
-                    }
-                    index += 1;
                 }
             }
         }
         System.out.println("Total number of coffee sold in last month is: " + totalNum);
     }
 
-    public void generateReportOfSoldCoffeeBean(){
+    public void generateReportOfSoldCoffeeBean(String storeId){
         List<String> orders = FileUtils.readFile("order.csv");
         int totalNum = 0;
-        for (String order: orders){
+        for (String order: orders) {
             String[] quantities = order.split(",");
             String[] items = quantities[3].split("\\|");
             String[] quantity = quantities[4].split("\\|");
             String date = quantities[7];
-            if (checkIfInLastMonth(date)) {
-                int index = 0;
-                for (String item : items) {
-                    boolean foodCheck = false;
-                    if (item.equals("roast coffee beans")) {
-                        foodCheck = true;
+            String orderStoreId = quantities[0];
+            if (storeId.trim().equalsIgnoreCase(orderStoreId)) {
+                if (checkIfInLastMonth(date)) {
+                    int index = 0;
+                    for (String item : items) {
+                        boolean foodCheck = false;
+                        if (item.equals("roast coffee beans")) {
+                            foodCheck = true;
+                        }
+                        if (foodCheck) {
+                            totalNum += Integer.parseInt(quantity[index]);
+                        }
+                        index += 1;
                     }
-                    if (foodCheck) {
-                        totalNum += Integer.parseInt(quantity[index]);
-                    }
-                    index += 1;
                 }
             }
         }
         System.out.println("Total number of coffee bean sold in last month is: " + totalNum);
     }
 
-    public void generateReportOfSoldFoodItem(){
+    public void generateReportOfSoldFoodItem(String storeId){
         List<String> orders = FileUtils.readFile("order.csv");
         int totalNum = 0;
-        for (String order: orders){
+        for (String order: orders) {
             String[] quantities = order.split(",");
             String[] quantity = quantities[4].split("\\|");
             String date = quantities[7];
-            if (checkIfInLastMonth(date)) {
-                for (String q : quantity) {
-                    totalNum += Integer.parseInt(q);
+            String orderStoreId = quantities[0];
+
+            if (orderStoreId.trim().equalsIgnoreCase(storeId)) {
+                if (checkIfInLastMonth(date)) {
+                    for (String q : quantity) {
+                        totalNum += Integer.parseInt(q);
+                    }
                 }
             }
         }
@@ -252,35 +268,38 @@ public class ReportService {
         System.out.println(totalSale);
     }
 
-    public void generateReportOfTypeOfCoffeeSoldMost(List<FoodItem> foodList){
+    public void generateReportOfTypeOfCoffeeSoldMost(List<FoodItem> foodList, String storeId){
         List<String> orders = FileUtils.readFile("order.csv");
         Map<String, Integer> coffeeSold = new HashMap<>();
-        for (String order: orders){
+        for (String order: orders) {
             String[] quantities = order.split(",");
             String[] items = quantities[3].split("\\|");
             String[] quantity = quantities[4].split("\\|");
             String date = quantities[7];
-            if (checkIfInLastMonth(date)) {
-                int index = 0;
-                for (String item : items) {
-                    boolean foodCheck = false;
-                    for (FoodItem foodItem : foodList) {
-                        if (foodItem.getFoodItemName().equals(item.strip()) && foodItem.getFoodType().equals("Coffee")) {
-                            foodCheck = true;
-                            break;
-                        }
-                    }
-                    if (foodCheck) {
-                        int currentQuantity = 0;
-                        for (Map.Entry<String, Integer> entry : coffeeSold.entrySet()) {
-                            if (entry.getKey().equals(item)) {
-                                currentQuantity += entry.getValue();
+            String orderStoreId = quantities[0];
+            if (orderStoreId.trim().equalsIgnoreCase(storeId.trim())) {
+                if (checkIfInLastMonth(date)) {
+                    int index = 0;
+                    for (String item : items) {
+                        boolean foodCheck = false;
+                        for (FoodItem foodItem : foodList) {
+                            if (foodItem.getFoodItemName().equals(item.strip()) && foodItem.getFoodType().equals("Coffee")) {
+                                foodCheck = true;
+                                break;
                             }
                         }
-                        int finalQuantity = currentQuantity + Integer.parseInt(quantity[index]);
-                        coffeeSold.put(item, finalQuantity);
+                        if (foodCheck) {
+                            int currentQuantity = 0;
+                            for (Map.Entry<String, Integer> entry : coffeeSold.entrySet()) {
+                                if (entry.getKey().equals(item)) {
+                                    currentQuantity += entry.getValue();
+                                }
+                            }
+                            int finalQuantity = currentQuantity + Integer.parseInt(quantity[index]);
+                            coffeeSold.put(item, finalQuantity);
+                        }
+                        index += 1;
                     }
-                    index += 1;
                 }
             }
         }
@@ -318,39 +337,37 @@ public class ReportService {
             Report reportOfSoldFoodItem = new Report(LocalDate.now(), "Number of item sold in last month",
                     "business report", store);
             ReportUtils.displayReportTitle(reportOfSoldFoodItem, store);
-            generateReportOfSoldFoodItem();
+            generateReportOfSoldFoodItem(store.getStoreId());
         } else if (choice == 3){
             Report reportOfSoldFoodItem = new Report(LocalDate.now(), "Number of coffee sold in last month",
                     "business report", store);
             ReportUtils.displayReportTitle(reportOfSoldFoodItem, store);
-            generateReportOfSoldCoffee(bakerySystem.getFoodList());
+            generateReportOfSoldCoffee(bakerySystem.getFoodList(), store.getStoreId());
         } else if (choice == 4){
             Report reportOfSoldFoodItem = new Report(LocalDate.now(),
                     "Number of coffee bean sold in last month",
                     "business report", store);
             ReportUtils.displayReportTitle(reportOfSoldFoodItem, store);
-            generateReportOfSoldCoffeeBean();
+            generateReportOfSoldCoffeeBean(store.getStoreId());
         } else if (choice == 5){
             Report reportOfSoldFoodItem = new Report(LocalDate.now(),
                     "Type of coffee sold the most per store in the last month",
                     "business report", store);
             ReportUtils.displayReportTitle(reportOfSoldFoodItem, store);
-            generateReportOfTypeOfCoffeeSoldMost(bakerySystem.getFoodList());
+            generateReportOfTypeOfCoffeeSoldMost(bakerySystem.getFoodList(),store.getStoreId());
         } else if (choice == 6){
             Report reportOfSoldFoodItem = new Report(LocalDate.now(),
                     "Days of the week that made the most sale in the last month per store",
                     "business report", store);
             ReportUtils.displayReportTitle(reportOfSoldFoodItem, store);
-            generateReportOfDaysMadeTheMostSold();
+            generateReportOfDaysMadeTheMostSold(store.getStoreId());
         } else if (choice == 7){
             Report reportOfSoldFoodItem = new Report(LocalDate.now(),
                     "Total sale made in dollars in the last month per store",
                     "business report", store);
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Enter Store id for which you want to see the report");
-            String storeId = sc.nextLine();
+
             ReportUtils.displayReportTitle(reportOfSoldFoodItem, store);
-            generateReportOfTotalSold(storeId);
+            generateReportOfTotalSold(store.getStoreId());
         }
         optionService.previousOption(currentUser, bakerySystem, u -> generateReport(currentUser, bakerySystem, store));
     }
