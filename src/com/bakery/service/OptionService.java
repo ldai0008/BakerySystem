@@ -56,6 +56,7 @@ public class OptionService {
                         break;
                     case "2":
                         bakeryService.createNewAdvanceOrder(bakerySystem);
+                        break;
                     case "0":
                         isContinue = false;
                         System.out.println("good bye!!!");

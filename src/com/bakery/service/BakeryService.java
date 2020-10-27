@@ -140,6 +140,24 @@ public class BakeryService {
 			String name = console.nextLine();
 			System.out.println("--  Enter the phone number of the customer:");
 			String phoneNumber = console.nextLine();
+			boolean isNumeric;
+			do {
+				isNumeric = true;
+				if (phoneNumber.length() == 0){
+					System.out.println("The phone number cannot be blank");
+					isNumeric = false;
+				} else if (!BakeryUtils.isNumeric(phoneNumber)){
+					System.out.println("Invalid input");
+					isNumeric = false;
+				} else if (phoneNumber.length() != 10 && phoneNumber.length() != 9){
+					System.out.println("Invalid input");
+					isNumeric = false;
+				}
+				if (!isNumeric){
+					System.out.println("Please enter again: ");
+					phoneNumber = console.nextLine();
+				}
+			} while (!isNumeric);
 			String date = getDate();
 			String time = getTime();
 			aOrder.setOrderDate(date);
