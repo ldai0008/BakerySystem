@@ -87,9 +87,9 @@ public class ReportService2 {
     This method can be used to generate a report for most sale made in dollars in last month.
     @author Muhammad Umer Chawla
     @return void
-    @params store store id whose report is required.
+    @params String store id whose report is required.
     */
-    public void generateReportForMostSaleMadeInDollars(Store store){
+    public void generateReportForMostSaleMadeInDollars(String storeId){
         System.out.println("Most Sale Made In Dollars");
         LocalDate currentDate = LocalDate.now();
         int currentMonth = currentDate.getMonthValue();
@@ -104,7 +104,7 @@ public class ReportService2 {
         }
 
         List<String> orders = FileUtils.readFile("order.csv");
-        String storeId = "0";
+        String orderStoreId = "0";
         double totalSale = 0;
         String orderDate;
         int orderMonth = 0;
@@ -113,7 +113,7 @@ public class ReportService2 {
             String[] orderDetails = order.split(",");
             storeId = orderDetails[0];
 
-            if (store.getStoreId() == storeId)
+            if (storeId == orderStoreId)
             {
                 orderDate = orderDetails[7];
                 orderMonth = Integer.parseInt(orderDate.split("-")[1]);
@@ -185,17 +185,6 @@ public class ReportService2 {
         System.out.println(dayWithMostSale + " Day of Previous month made the most sale");
 
     }
-
-
-
-
-
-
-
-
-
-
-
 
     public void generateReportOfSoldFoodItem(){
         List<String> orders = FileUtils.readFile("order.csv");

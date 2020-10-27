@@ -232,18 +232,24 @@ public class ReportService {
         System.out.println("Total number of sold items in last month is: " + totalNum);
     }
 
-    public void generateReportOfTotalSold(){
+    public void generateReportOfTotalSold(String storeId){
         List<String> orders = FileUtils.readFile("order.csv");
-        double totalNum = 0;
+        double totalSale = 0;
+        String orderStoreId = "0";
         for (String order: orders){
             String[] quantities = order.split(",");
             String date = quantities[7];
-            if (checkIfInLastMonth(date)) {
-                totalNum += Double.parseDouble(quantities[6]);
+            orderStoreId = quantities[0];
+
+            if (orderStoreId.trim().equalsIgnoreCase(storeId)){
+                if (checkIfInLastMonth(date)) {
+                    totalSale += Double.parseDouble(quantities[6]);
+                }
             }
+
         }
-        System.out.println("Total number of sold items in last month is: ");
-        System.out.println(totalNum);
+        System.out.println("Total Sale Made in dollars: ");
+        System.out.println(totalSale);
     }
 
     public void generateReportOfTypeOfCoffeeSoldMost(List<FoodItem> foodList){
@@ -340,8 +346,11 @@ public class ReportService {
             Report reportOfSoldFoodItem = new Report(LocalDate.now(),
                     "Total sale made in dollars in the last month per store",
                     "business report", store);
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Enter Store id for which you want to see the report");
+            String storeId = sc.nextLine();
             ReportUtils.displayReportTitle(reportOfSoldFoodItem, store);
-            generateReportOfTotalSold();
+            generateReportOfTotalSold(storeId);
         }
         optionService.previousOption(currentUser, bakerySystem, u -> generateReport(currentUser, bakerySystem, store));
     }
