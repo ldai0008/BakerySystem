@@ -1,17 +1,15 @@
-package com.bakery.utils;
+package com.bakery.view;
 
-import com.bakery.model.BakerySystem;
-import com.bakery.model.FoodItem;
+import com.bakery.model.*;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class BakeryUtils {
-
-    private BakeryUtils() {
-        super();
-    }
-
+public class UserInterface {
     public static void displayBakeShop() {
         System.out.println("=======================================");
         System.out.println("|                                     |");
@@ -126,7 +124,7 @@ public class BakeryUtils {
     }
 
     public static void initializeFoodItem(BakerySystem bakerySystem) {
-        List<String> foodItems = FileUtils.readFile("foodItem.csv");
+        List<String> foodItems = readFile("foodItem.csv");
         for (String foodItem : foodItems) {
             String[] f = foodItem.split(",");
             FoodItem aFoodItem = new FoodItem();
@@ -138,4 +136,83 @@ public class BakeryUtils {
         }
     }
 
+    public static List<String> readFile(String fileName) {
+        ArrayList<String> strings = new ArrayList<String>();
+        try {
+            FileReader inputFile = new FileReader(fileName);
+            try {
+                Scanner parser = new Scanner(inputFile);
+                parser.nextLine();
+                while (parser.hasNextLine()) {
+                    String line = parser.nextLine();
+                    if (line.isEmpty())
+                        continue;
+                    strings.add(line);
+                }
+            } finally {
+                inputFile.close();
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(fileName + " not found");
+        } catch (IOException e) {
+            System.out.println("Unexpected I/O exception occur");
+        }
+        return strings;
+    }
+
+    public static void displayReportTitle(Report report, Store store) {
+        displayBakeShop();
+        System.out.println("Report: ");
+        System.out.println("dateOfReport: " + report.getDateOfReport());
+        System.out.println("nameOfReport: " + report.getNameOfReport());
+        System.out.println("typeOfReport: " + report.getTypeOfReport());
+        System.out.println("storeId: " + store.getStoreId());
+        System.out.println("****************************************");
+    }
+
+    public static boolean validateUser(String account, String password, BakerySystem bakerySystem) {
+        List<String> users = readFile("user.csv");
+        for (String user : users) {
+            String[] u = user.split(",");
+//            if ((Integer.parseInt(u[1]) == Integer.parseInt(account) || u[2].equals(account))
+            if ((u[0].toLowerCase().equals(account.toLowerCase()) || u[2].equals(account))
+                    && u[3].equals(password)) {
+                int userId = Integer.parseInt(u[0]);
+                User aUser = new User(userId, u[1], u[2], u[3], u[4], u[5], u[6], u[7], u[8]);
+                List<String> stores = readFile("store.csv");
+                ArrayList<Store> storeList = new ArrayList<>();
+                bakerySystem.getBakery().setListOfStore(storeList);
+                for (String store : stores) {
+                    String[] s = store.split(",");
+                    String[] storeIds = u[9].split("\\|");
+                    for (String storeId : storeIds) {
+                        if (s[0].equals(storeId)) {
+                            Store aStore = new Store();
+                            aStore.setStoreId(s[0]);
+                            aStore.setStoreAddress(s[1]);
+                            aStore.setStoreContactNumber(s[2]);
+                            ArrayList<User> userList = new ArrayList<>();
+                            userList.add(aUser);
+                            aStore.setListOfUser(userList);
+                            List<String> inventory = readFile("inventory.csv");
+                            ArrayList<Inventory> inventoryList = new ArrayList<>();
+                            for (String item : inventory) {
+                                String[] i = item.split(",");
+                                Inventory anItem = new Inventory();
+                                anItem.setItemNumber(i[0]);
+                                anItem.setQuantity(Integer.parseInt(i[1]));
+                                anItem.setDateAdded(i[2]);
+                                inventoryList.add(anItem);
+                            }
+                            aStore.setListOfInventory(inventoryList);
+                            storeList.add(aStore);
+                        }
+                    }
+                }
+                initializeFoodItem(bakerySystem);
+                return true;
+            }
+        }
+        return false;
+    }
 }
