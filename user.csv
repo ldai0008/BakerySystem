@@ -1,3 +1,103 @@
 employee Id,employee name,email,password,TFN,Street Address,Contact number,User Type,User Status,store id
 1,June,june@gmail.com,june,3999999999,131 Neerim Road,(03) 4567 7967,Manager,ACTIVE,1
-0,Oliver,oliver@gmail.com,oliver,null,null,(03) 3333 3333,Owner,ACTIVE,1|2|3|4|5|6|7|8|9|10
+0,Oliver,oliver@gmail.com,oliver,,,(03) 3333 3333,Owner,ACTIVE,1|2|3|4|5|6|7|8|9|10
+1000,Oren Z. Ball,nunc.ullamcorper.eu@euduiCum.net,mollis,3888888888,133 Neerim Road,(06) 8117 0366,Manager,ACTIVE,10
+1001,Chanda Benjamin,a.malesuada.id@uteros.net,metus.,3888888889,134 Neerim Road,(05) 9786 2269,Manager,ACTIVE,4
+1002,Lynn K. Gregory,nec.diam@mauris.co.uk,et,3888888890,135 Neerim Road,(02) 5048 2457,Staff,ACTIVE,1
+1003,Teegan Z. Pitts,arcu.Morbi@mus.edu,libero,3888888891,136 Neerim Road,(07) 8974 8027,Manager,ACTIVE,1
+1004,Jermaine James,Cum.sociis.natoque@Loremipsumdolor.ca,nibh.,3888888892,137 Neerim Road,(01) 1084 3435,Manager,ACTIVE,4
+1005,Willa Gonzalez,posuere.cubilia@Utsemper.com,sem.,3888888893,138 Neerim Road,(07) 6697 0324,Manager,ACTIVE,9
+1006,Illiana Buck,Donec@magnaUt.edu,Cras,3888888894,139 Neerim Road,(02) 5586 5596,Manager,ACTIVE,1
+1007,Vincent Chapman,auctor@aliquet.com,ligula.,3888888895,140 Neerim Road,(02) 0228 2189,Staff,ACTIVE,2
+1008,Hermione King,justo@cursus.co.uk,ante.,3888888896,141 Neerim Road,(01) 9083 6540,Staff,ACTIVE,5
+1009,Kelly Atkins,non@molestiesodales.net,sodales,3888888897,142 Neerim Road,(09) 9838 5189,Staff,ACTIVE,7
+1010,Kerry Terrell,vel.vulputate.eu@Duisa.com,sollicitudin,3888888898,143 Neerim Road,(06) 2796 0055,Manager,ACTIVE,8
+1011,Ray R. Strickland,Cras.dictum.ultricies@Donec.edu,adipiscing,3888888899,144 Neerim Road,(04) 7030 5862,Staff,ACTIVE,7
+1012,Farrah F. Patton,ut.erat@ultriciesdignissim.com,neque,3888888900,145 Neerim Road,(04) 7427 7447,Manager,ACTIVE,4
+1013,Raja Walters,non@sapienCras.edu,erat,3888888901,146 Neerim Road,(03) 8811 8995,Manager,ACTIVE,7
+1014,Jasper Barr,eget@euaccumsan.org,rutrum,3888888902,147 Neerim Road,(03) 7375 4668,Staff,ACTIVE,3
+1015,Yuri L. Castro,diam@afelis.co.uk,eu,3888888903,148 Neerim Road,(03) 2154 1576,Staff,ACTIVE,10
+1016,Shelly Noel,fermentum@necdiam.com,erat.,3888888904,149 Neerim Road,(09) 7202 2621,Staff,ACTIVE,10
+1017,Laith J. Rose,eros.Nam@parturient.com,a,3888888905,150 Neerim Road,(06) 2627 5203,Staff,ACTIVE,6
+1018,Cullen Blankenship,libero.Integer@ullamcorpereu.com,ac,3888888906,151 Neerim Road,(04) 3559 0533,Staff,ACTIVE,8
+1019,Yardley Stanley,scelerisque.scelerisque.dui@tellusSuspendissesed.co.uk,Pellentesque,3888888907,152 Neerim Road,(02) 4269 0694,Staff,ACTIVE,1
+1020,Plato Robinson,neque.sed@anunc.co.uk,ornare.,3888888908,153 Neerim Road,(02) 7575 5991,Staff,ACTIVE,8
+1021,Craig Colon,libero@consequatdolorvitae.edu,ipsum,3888888909,154 Neerim Road,(03) 4694 3592,Staff,ACTIVE,6
+1022,Kenneth Bradshaw,sagittis.Nullam.vitae@Etiambibendum.org,justo,3888888910,155 Neerim Road,(03) 2208 7082,Manager,ACTIVE,10
+1023,Jaquelyn N. Burt,semper@imperdiet.org,at,3888888911,156 Neerim Road,(07) 7408 5497,Staff,ACTIVE,4
+1024,Lacota X. Pratt,aliquet.libero@atfringilla.ca,Quisque,3888888912,157 Neerim Road,(05) 2481 2590,Staff,ACTIVE,9
+1025,Aladdin England,id@vitae.edu,Vivamus,3888888913,158 Neerim Road,(05) 7462 4200,Manager,ACTIVE,2
+1026,Madonna Peterson,Proin@blanditcongue.com,ullamcorper.,3888888914,159 Neerim Road,(07) 1833 2088,Staff,ACTIVE,9
+1027,Martin Whitaker,Proin@ridiculus.com,faucibus,3888888915,160 Neerim Road,(05) 8077 1098,Manager,ACTIVE,2
+1028,Igor Noble,Integer.in.magna@rutrumjusto.org,Class,3888888916,161 Neerim Road,(07) 7857 5814,Manager,ACTIVE,7
+1029,Jarrod Mcneil,Curabitur.egestas.nunc@elitpedemalesuada.com,Proin,3888888917,162 Neerim Road,(05) 9576 9083,Staff,ACTIVE,6
+1030,Mason U. Harper,sem.ut.dolor@anteVivamus.edu,Duis,3888888918,163 Neerim Road,(05) 3975 3927,Staff,ACTIVE,2
+1031,Sopoline Clarke,per@sapiencursus.co.uk,libero,3888888919,164 Neerim Road,(08) 4081 2275,Manager,ACTIVE,5
+1032,Giselle Mcconnell,eu.elit@estmollisnon.net,quis,3888888920,165 Neerim Road,(08) 1028 6165,Staff,ACTIVE,2
+1033,Baxter G. Drake,ultricies@diamvel.co.uk,dapibus,3888888921,166 Neerim Road,(01) 9981 9123,Staff,ACTIVE,4
+1034,Grady K. Roy,lorem.luctus.ut@sagittisNullamvitae.net,aliquam,3888888922,167 Neerim Road,(07) 5056 4821,Staff,ACTIVE,5
+1035,Kenyon R. Wilkerson,malesuada.fringilla.est@orciluctus.co.uk,Sed,3888888923,168 Neerim Road,(09) 1376 5731,Staff,ACTIVE,2
+1036,Beverly L. Reeves,nec.mollis.vitae@massa.net,Suspendisse,3888888924,169 Neerim Road,(06) 2443 4163,Manager,ACTIVE,4
+1037,Tucker E. Britt,imperdiet@Integereulacus.co.uk,semper,3888888925,170 Neerim Road,(09) 7368 4395,Manager,ACTIVE,6
+1038,Kuame Melton,sem.ut@conubianostra.org,risus,3888888926,171 Neerim Road,(01) 6816 0121,Staff,ACTIVE,10
+1039,Kristen Cotton,interdum.enim.non@euturpisNulla.org,ut,3888888927,172 Neerim Road,(01) 0840 5355,Staff,ACTIVE,10
+1040,Rinah I. Townsend,In.lorem@adipiscinglobortisrisus.com,ligula.,3888888928,173 Neerim Road,(05) 9744 8837,Staff,ACTIVE,2
+1041,Addison Beard,montes.nascetur@dignissimmagna.org,arcu,3888888929,174 Neerim Road,(06) 1261 6079,Staff,ACTIVE,3
+1042,Tyler R. Maynard,posuere@urnajustofaucibus.ca,lectus,3888888930,175 Neerim Road,(07) 0875 2326,Staff,ACTIVE,1
+1043,Cleo C. Weber,libero@enimEtiam.net,dolor,3888888931,176 Neerim Road,(05) 8411 9916,Manager,ACTIVE,3
+1044,Brynne Bray,sit.amet.nulla@gravidamolestiearcu.org,sem,3888888932,177 Neerim Road,(01) 3179 8976,Manager,ACTIVE,2
+1045,Laith Stevens,Suspendisse@ornare.org,dapibus,3888888933,178 Neerim Road,(07) 2613 8909,Manager,ACTIVE,10
+1046,Nadine O. Lang,ac.arcu@enim.org,odio.,3888888934,179 Neerim Road,(07) 5412 0873,Staff,ACTIVE,9
+1047,Scarlett Hicks,venenatis.vel.faucibus@dignissimmagnaa.edu,Curabitur,3888888935,180 Neerim Road,(06) 2014 7926,Staff,ACTIVE,4
+1048,Alec Soto,Fusce@nonhendreritid.org,ipsum.,3888888936,181 Neerim Road,(07) 6729 7349,Manager,ACTIVE,5
+1049,Laurel Jarvis,mattis.ornare@molestieSed.edu,sit,3888888937,182 Neerim Road,(02) 0531 7352,Staff,ACTIVE,6
+1050,Asher D. Little,auctor.ullamcorper.nisl@Vestibulum.org,interdum,3888888938,183 Neerim Road,(03) 2631 9969,Manager,ACTIVE,4
+1051,Jessamine H. Buckner,fringilla.euismod.enim@blanditmattisCras.com,et,3888888939,184 Neerim Road,(02) 1776 0950,Manager,ACTIVE,2
+1052,Kathleen Dixon,parturient.montes@tempusscelerisque.co.uk,semper.,3888888940,185 Neerim Road,(04) 5162 5663,Staff,ACTIVE,10
+1053,Joseph X. Preston,iaculis@diamdictumsapien.co.uk,vestibulum,3888888941,186 Neerim Road,(06) 9597 7692,Staff,ACTIVE,9
+1054,Claudia Foreman,Praesent@ametconsectetuer.co.uk,ullamcorper,3888888942,187 Neerim Road,(05) 9480 9849,Staff,ACTIVE,8
+1055,Maisie Bridges,venenatis@ac.org,tempus,3888888943,188 Neerim Road,(06) 9034 6124,Manager,ACTIVE,9
+1056,Owen Clarke,malesuada@temporaugueac.net,neque,3888888944,189 Neerim Road,(06) 1867 6538,Staff,ACTIVE,9
+1057,Adara X. Frederick,et.nunc.Quisque@pedenec.ca,pellentesque,3888888945,190 Neerim Road,(08) 5543 1138,Staff,ACTIVE,6
+1058,Hope Ford,tempus.lorem@Etiamvestibulum.com,lorem,3888888946,191 Neerim Road,(07) 2130 1496,Manager,ACTIVE,7
+1059,Mannix H. Taylor,Integer@elitsedconsequat.net,consectetuer,3888888947,192 Neerim Road,(03) 7011 0378,Staff,ACTIVE,1
+1060,Chiquita Blevins,Nullam@semelitpharetra.com,cursus,3888888948,193 Neerim Road,(02) 9054 3163,Staff,ACTIVE,9
+1061,Chloe N. Walsh,ac.ipsum.Phasellus@turpis.edu,elementum,3888888949,194 Neerim Road,(03) 0232 5244,Staff,ACTIVE,1
+1062,Octavius Hines,metus.urna.convallis@Quisquepurussapien.com,parturient,3888888950,195 Neerim Road,(08) 5004 6486,Manager,ACTIVE,3
+1063,Curran N. Barron,auctor@mauris.ca,feugiat,3888888951,196 Neerim Road,(03) 3751 3356,Staff,ACTIVE,9
+1064,Roth Yates,ac.risus@pede.ca,luctus,3888888952,197 Neerim Road,(05) 6584 3533,Staff,ACTIVE,8
+1065,Odette Koch,lacinia.at.iaculis@etmagnisdis.net,id,3888888953,198 Neerim Road,(09) 2592 0863,Staff,ACTIVE,9
+1066,Justine N. Rios,ipsum@tincidunttempusrisus.org,non,3888888954,199 Neerim Road,(02) 5931 3081,Staff,ACTIVE,4
+1067,Quail R. Robinson,ac@diamvel.edu,natoque,3888888955,200 Neerim Road,(06) 2003 9627,Manager,ACTIVE,1
+1068,Farrah M. Dillon,lorem@varius.com,Integer,3888888956,201 Neerim Road,(03) 5954 1411,Staff,ACTIVE,3
+1069,Tyler F. Callahan,vitae.purus@Suspendisse.org,natoque,3888888957,202 Neerim Road,(05) 1033 6971,Manager,ACTIVE,2
+1070,Xanthus K. Sheppard,lorem@vitaeodio.edu,non,3888888958,203 Neerim Road,(05) 2155 4848,Staff,ACTIVE,9
+1071,Cyrus L. Grimes,dui.lectus@vellectusCum.co.uk,montes,3888888959,204 Neerim Road,(05) 1436 5829,Manager,ACTIVE,10
+1072,Bryar Keith,ligula@dictumProineget.org,quis,3888888960,205 Neerim Road,(09) 7184 1127,Manager,ACTIVE,1
+1073,Mason M. Berger,eros.nec.tellus@neque.com,pede.,3888888961,206 Neerim Road,(03) 0547 3758,Staff,ACTIVE,9
+1074,Carly Jones,egestas@nullaInteger.org,Donec,3888888962,207 Neerim Road,(08) 4232 8838,Staff,ACTIVE,10
+1075,Vivien Rodriguez,augue.malesuada@orciconsectetuer.net,est.,3888888963,208 Neerim Road,(04) 1031 8071,Manager,ACTIVE,7
+1076,Xena G. Mcfarland,gravida@morbitristiquesenectus.org,sit,3888888964,209 Neerim Road,(09) 1753 8548,Manager,ACTIVE,6
+1077,Daryl L. Roberson,erat@vitaeodiosagittis.ca,dolor,3888888965,210 Neerim Road,(08) 4381 9898,Manager,ACTIVE,1
+1078,Lev Allen,fringilla@acarcu.edu,felis,3888888966,211 Neerim Road,(06) 4506 2200,Staff,ACTIVE,4
+1079,Leilani Strong,ac@enimcondimentumeget.com,augue.,3888888967,212 Neerim Road,(03) 8824 0139,Staff,ACTIVE,8
+1080,Owen Higgins,egestas@feugiattelluslorem.co.uk,sit,3888888968,213 Neerim Road,(01) 5686 2441,Manager,ACTIVE,2
+1081,Jorden M. Petty,congue.a.aliquet@facilisisfacilisismagna.net,sem,3888888969,214 Neerim Road,(02) 0566 9165,Manager,ACTIVE,6
+1082,Keaton Daniels,tellus.eu@dolor.co.uk,mattis,3888888970,215 Neerim Road,(07) 2960 3921,Manager,ACTIVE,10
+1083,Beck Austin,ante.dictum@habitantmorbi.org,quam,3888888971,216 Neerim Road,(03) 8074 8751,Manager,ACTIVE,5
+1084,Meredith Best,Fusce.aliquam.enim@sitamet.org,Nam,3888888972,217 Neerim Road,(01) 9751 7748,Manager,ACTIVE,5
+1085,Scott Boyle,magna.malesuada@AeneanmassaInteger.net,tempor,3888888973,218 Neerim Road,(03) 9347 6836,Staff,ACTIVE,1
+1086,Elton X. Mathews,a.neque@et.net,fringilla,3888888974,219 Neerim Road,(02) 7984 8240,Staff,ACTIVE,10
+1087,Jeremy G. Salazar,facilisis.non.bibendum@vitae.ca,Integer,3888888975,220 Neerim Road,(09) 1460 5908,Staff,ACTIVE,8
+1088,Ralph Y. Giles,sodales@id.edu,Nullam,3888888976,221 Neerim Road,(06) 1926 1327,Manager,ACTIVE,9
+1089,Brandon W. Melendez,ut.mi.Duis@augue.com,nec,3888888977,222 Neerim Road,(05) 6494 5558,Manager,ACTIVE,8
+1090,Denton Stokes,congue@orciquislectus.co.uk,Cras,3888888978,223 Neerim Road,(02) 4464 9995,Staff,ACTIVE,1
+1091,Garrett Z. Frost,Mauris.blandit.enim@arcu.ca,augue,3888888979,224 Neerim Road,(09) 4686 0542,Manager,ACTIVE,10
+1092,Gareth Parsons,Sed@ullamcorpernisl.net,Aliquam,3888888980,225 Neerim Road,(02) 5137 0647,Staff,ACTIVE,7
+1093,Bree E. Dudley,at@semelit.org,dapibus,3888888981,226 Neerim Road,(01) 6883 4305,Staff,ACTIVE,1
+1094,Kaye Swanson,est.Nunc.ullamcorper@idrisusquis.net,vulputate,3888888982,227 Neerim Road,(09) 9081 8242,Manager,ACTIVE,2
+1095,Evelyn U. Holcomb,porttitor@pharetrasedhendrerit.org,nec,3888888983,228 Neerim Road,(03) 5242 2315,Staff,ACTIVE,6
+1096,Steven Gallegos,eget.tincidunt@dapibusidblandit.com,In,3888888984,229 Neerim Road,(07) 1401 9115,Manager,ACTIVE,3
+1097,Ginger S. Spears,luctus.et@magnaet.com,Mauris,3888888985,230 Neerim Road,(07) 9223 4680,Staff,ACTIVE,5
+1098,Octavius Lynch,metus.In.lorem@id.edu,tristique,3888888986,231 Neerim Road,(07) 6292 2891,Manager,ACTIVE,1
+1099,Hamilton Mercado,libero.lacus.varius@sodalespurus.ca,eu,3888888987,232 Neerim Road,(03) 5405 2810,Staff,ACTIVE,8

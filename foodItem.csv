@@ -1,9 +1,57 @@
-Item id,name of item,foodType,Current Price
-I-001,white bread,bread,5
-I-002,cucumber  Sandwich,Sandwich,2
-I-003,plain pancake,pancake,3
-I-004,barros Luco Sandwich,Sandwich,1
-I-005,texas brisket sandwich,Sandwich,2.5
-I-006,ice coffee,Coffee,10
-I-007,Cappuccino,Coffee,12
-I-008,roast coffee beans,Coffee,10
+item id,name of item,food Type,current price
+I-001,white bread ,Bread,2
+I-002,cucumber  Sandwich ,Sandwich ,2.3
+I-003,plain pancake ,Cake,4
+I-004,barros Luco Sandwich ,Sandwich ,1
+I-005,texas brisket sandwich ,Sandwich ,5
+I-006,broodje kroket  Sandwich ,Sandwich ,2
+I-007,multigrain bread ,Bread,3.3
+I-008,lemonade ,Drinks,3
+I-009,fanta ,Drinks,2
+I-010,coke ,Drinks,1
+I-011,chicken burger ,Burger,8.2
+I-013,Expresso ,Coffee,6.6
+I-014,toast skagen ,Dessert,3
+I-015,red valvet cake ,Cake,1
+I-016,lamb burger ,Burger,4.3
+I-017,charcoal bread ,Bread,5
+I-018,water ,Drinks,1
+I-019,fries burger ,Burger,2
+I-021,Gatsby  Sandwich ,Sandwich ,5.4
+I-023,vanilla cake ,Cake,2
+I-025,Bocadillo De atun  Sandwich ,Sandwich ,2.5
+I-029,banana pancake ,Dessert,1.5
+I-030,Yakisoba pan ,Bread,2
+I-033,ice coffee,Coffee,5
+I-034,potato pancake ,Cake,6
+I-036,rye bread ,Bread,9
+I-037,dinner roll ,Bread,1
+I-039,raspberry cake ,Cake,1.5
+I-040,CRUMB APPLE MUFFINS ,Dessert,2.25
+I-041,veggie burger ,Burger,2.3
+I-043,fish burger ,Burger,4
+I-046,Cappuccino ,Coffee,1.5
+I-047,chocolate chip pancake ,Cake,2
+I-049,Runza Sandwich ,Sandwich ,3.75
+I-052,fat  Sandwich ,Sandwich ,4
+I-053,LEMON CRUMB MUFFINS ,Dessert,3
+I-054,tiramisu cake ,Cake,2
+I-056,BANANA BLUEBERRY MUFFINS ,Dessert,5
+I-059,spicy chicken burger ,Burger,5.3
+I-062,rainbow cake ,Cake,8
+I-066,BLUEBERRY MUFFINS ,Dessert,10
+I-072,panbazo Sandwich ,Sandwich ,3
+I-076,Nutella cake ,Cake,0.75
+I-078,ice latte ,Coffee,1.25
+I-080,blueberry pancake ,Cake,10
+I-081,pepsi ,Drinks,1.6
+I-086,double fish fillet burger ,Burger,2.3
+I-092,chocolate cake ,Cake,16
+I-093,Sugar,Material,
+I-094,Milk,Material,
+I-094,Milk,Material,
+I-095,Flour,Material,
+I-096,Strawberry,Material,
+I-097,Banana ,Material,
+I-098,BlueBerry,Material,
+I-099,roast coffee beans,Coffee beans,31

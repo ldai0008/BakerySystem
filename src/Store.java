@@ -1,5 +1,3 @@
-package com.bakery.model;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,5 +1,3 @@
-package com.bakery.model;
-
 public class User {
 
 	protected Integer userId;

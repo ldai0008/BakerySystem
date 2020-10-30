@@ -1,17 +1,13 @@
-package com.bakery.model;
-
 import java.time.LocalDate;
 
 public class Report {
 
-	private LocalDate dateOfReport = LocalDate.now();
+	private LocalDate dateOfReport;
 	private String nameOfReport;
 	private String typeOfReport;
 	private Store store;
 
-	public Report() {
-		super();
-	}
+
 
 	public Report(LocalDate dateOfReport, String nameOfReport, String typeOfReport, Store store) {
 		super();

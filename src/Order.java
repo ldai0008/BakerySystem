@@ -1,5 +1,3 @@
-package com.bakery.model;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,12 +12,9 @@ public class Order {
 	private String lastModifiedDate;
 	private String lastModifiedTime;
 	private String nameOfCustomer;
-	private String customerPhone;
 	private String lastModifiedBy;
 
 	public Order() {
-		super();
-		this.customerPhone = "";
 		this.orderDate = "";
 		this.orderTime = "";
 		this.orderStatus = "";
@@ -31,11 +26,9 @@ public class Order {
 		this.lastModifiedBy = "";
 	}
 
-	public Order(String customerPhone, String orderDate, String orderId, String orderTime, String orderStatus,
+	public Order(String orderDate, String orderId, String orderTime, String orderStatus,
 			Map<FoodItem, Integer> quantity, Double totalCost, String lastModifiedDate, String lastModifiedTime,
 			String nameOfCustomer, String lastModifiedBy) {
-		super();
-		this.customerPhone = customerPhone;
 		this.orderDate = orderDate;
 		this.orderId = orderId;
 		this.orderTime = orderTime;
@@ -46,6 +39,9 @@ public class Order {
 		this.lastModifiedTime = lastModifiedTime;
 		this.nameOfCustomer = nameOfCustomer;
 		this.lastModifiedBy = lastModifiedBy;
+	}
+	public String getCustomerPhone(){
+		return "";
 	}
 
 	public String getOrderDate() {
@@ -118,14 +114,6 @@ public class Order {
 
 	public void setNameOfCustomer(String nameOfCustomer) {
 		this.nameOfCustomer = nameOfCustomer;
-	}
-
-	public String getCustomerPhone() {
-		return customerPhone;
-	}
-
-	public void setCustomerPhone(String customerPhone) {
-		this.customerPhone = customerPhone;
 	}
 
 	public String getLastModifiedBy() {

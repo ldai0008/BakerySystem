@@ -1,7 +1,3 @@
-package com.bakery.view;
-
-import com.bakery.model.*;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -52,9 +48,10 @@ public class UserInterface {
         return option;
     }
 
-    public static void displayHomeScreen(String userName, String userType) {
+    public static void displayHomeScreen(String userName, String userType, Store currentStore) {
         displayBakeShop();
-        System.out.println(" *****Welcome, " + userName + "(" + userType + ")*****");
+        System.out.println("    *****Welcome, " + userName + "(" + userType + ")*****");
+        System.out.println("        You are in store *" + currentStore.getStoreId() + "*");
         switch (userType) {
             case "Staff":
                 System.out.println("-- Please select one option by entering the number:");
@@ -87,6 +84,7 @@ public class UserInterface {
                 System.out.println("8. Track my business");
                 System.out.println("9. View my profile");
                 System.out.println("0. Logout");
+                System.out.println("C. Change current Store");
                 break;
             default:
                 System.out.println("-- Please select one option by entering the number:");
@@ -98,7 +96,7 @@ public class UserInterface {
 
     public static void displayLoginError() {
         System.out.println("!Error: User is not valid!");
-        System.out.println("****************************************\n"
+        System.out.println("***************************************\n"
                 + "Please try login again.or contact the owner to reset the password.");
     }
 
@@ -112,6 +110,7 @@ public class UserInterface {
         System.out.println("5. Type of coffee sold the most per store in the last month");
         System.out.println("6. Days of the week that made the most sale in the last month per store");
         System.out.println("7. Total sale made in dollars in the last month per store");
+        System.out.println("8. Back to home screen");
     }
 
     public static boolean isNumeric(String s) {
@@ -127,13 +126,56 @@ public class UserInterface {
         List<String> foodItems = readFile("foodItem.csv");
         for (String foodItem : foodItems) {
             String[] f = foodItem.split(",");
-            FoodItem aFoodItem = new FoodItem();
-            aFoodItem.setItemNumber(f[0]);
-            aFoodItem.setFoodItemName(f[1]);
-            aFoodItem.setFoodType(f[2]);
-            aFoodItem.setCurrentPrice(Double.parseDouble(f[3]));
-            bakerySystem.getFoodList().add(aFoodItem);
+            if (!f[2].strip().equals("Material")) {
+                FoodItem aFoodItem = new FoodItem();
+                aFoodItem.setItemNumber(f[0]);
+                aFoodItem.setFoodItemName(f[1]);
+                aFoodItem.setFoodType(f[2]);
+                aFoodItem.setCurrentPrice(Double.parseDouble(f[3]));
+                bakerySystem.getFoodList().add(aFoodItem);
+            }
         }
+    }
+
+    public static boolean login(BakerySystem bakerySystem) {
+        Scanner console = new Scanner(System.in);
+        System.out.println("--Enter your employee id or email:");
+        System.out.println("--Enter your password:");
+        String account = console.nextLine();
+        if (account.toLowerCase().equals("n")){
+            System.exit(1);
+        }
+        System.out.println("--Enter your employee id or email:" + account);
+        System.out.println("--Enter your password:");
+        String password = console.nextLine();
+        System.out.println("--Enter your employee id or email:" + account);
+        System.out.println("--Enter your password:" + password);
+
+        if (validateUser(account, password, bakerySystem))
+            return true;
+        else
+            return false;
+
+    }
+
+    public static void main(String args[]) {
+        while (true) {
+            BakerySystem bakerySystem = new BakerySystem();
+            boolean check;
+            UserInterface.displayBakeShop();
+            System.out.println("***************************************");
+            System.out.println("   Please enter your user credential");
+            System.out.println("or enter N in account to end the program");
+            System.out.println("***************************************");
+            check = login(bakerySystem);
+            while (!check) {
+                UserInterface.displayLoginError();
+                check = login(bakerySystem);
+            }
+            User currentUser = bakerySystem.getBakery().getListOfStore().get(0).getListOfUser().get(0);
+            bakerySystem.mainOption(currentUser, bakerySystem);
+        }
+
     }
 
     public static List<String> readFile(String fileName) {
@@ -159,7 +201,17 @@ public class UserInterface {
         }
         return strings;
     }
-
+    public static void updateNewestInventory(Store currentStore) {
+        List<String> inventories = UserInterface.readFile("inventory.csv");
+        currentStore.getListOfInventory().clear();
+        for (String inventory : inventories) {
+            String[] i = inventory.split(",");
+            if (i[0].equals(currentStore.getStoreId())) {
+                Inventory aInventory = new Inventory(i[1], Integer.parseInt(i[2]), i[3]);
+                currentStore.getListOfInventory().add(aInventory);
+            }
+        }
+    }
     public static void displayReportTitle(Report report, Store store) {
         displayBakeShop();
         System.out.println("Report: ");
@@ -174,7 +226,6 @@ public class UserInterface {
         List<String> users = readFile("user.csv");
         for (String user : users) {
             String[] u = user.split(",");
-//            if ((Integer.parseInt(u[1]) == Integer.parseInt(account) || u[2].equals(account))
             if ((u[0].toLowerCase().equals(account.toLowerCase()) || u[2].equals(account))
                     && u[3].equals(password)) {
                 int userId = Integer.parseInt(u[0]);
@@ -199,10 +250,12 @@ public class UserInterface {
                             for (String item : inventory) {
                                 String[] i = item.split(",");
                                 Inventory anItem = new Inventory();
-                                anItem.setItemNumber(i[0]);
-                                anItem.setQuantity(Integer.parseInt(i[1]));
-                                anItem.setDateAdded(i[2]);
-                                inventoryList.add(anItem);
+                                if (i[0].equals(s[0])) {
+                                    anItem.setItemNumber(i[1]);
+                                    anItem.setQuantity(Integer.parseInt(i[2]));
+                                    anItem.setDateAdded(i[3]);
+                                    inventoryList.add(anItem);
+                                }
                             }
                             aStore.setListOfInventory(inventoryList);
                             storeList.add(aStore);
@@ -215,4 +268,7 @@ public class UserInterface {
         }
         return false;
     }
+
+
+
 }
