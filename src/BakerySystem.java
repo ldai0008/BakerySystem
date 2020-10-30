@@ -37,8 +37,12 @@ public class BakerySystem {
         this.foodList = foodList;
     }
 
-    /*
-
+    /**
+     * Add the data of new order in database
+     * @param aOrder
+     *        The Order object of new order
+     * @param currentStore
+     *        The Store object of store generating the order
      */
     public void addOrderInDB(Order aOrder, Store currentStore) {
         BufferedWriter out = null;
