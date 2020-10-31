@@ -501,8 +501,9 @@ public class BakerySystem {
     /**
      * The method to read a file
      * @param fileName
-     *        the name of the file e
+     *        the name of the file
      * @return
+     *        a string list contains the full content of the file, each element is one line in the file
      */
     public static List<String> readFile(String fileName) {
         ArrayList<String> strings = new ArrayList<>();
@@ -525,6 +526,13 @@ public class BakerySystem {
         return strings;
     }
 
+    /**
+     * Search the item whose name contains the input string
+     * @param s
+     *        a string supposed to be part of the item name
+     * @param currentStore
+     * @return
+     */
     public ArrayList<FoodItem> searchItems(String s, Store currentStore) {
         ArrayList<FoodItem> items = new ArrayList<>();
         s = s.strip();
