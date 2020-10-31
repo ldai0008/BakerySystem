@@ -464,10 +464,8 @@ public class BakerySystem {
 
     /**
      * Read the data for a csv file, and creating FoodItem object for each row in the file
-     * @param bakerySystem
-     *
      */
-    public static void initializeFoodItem(BakerySystem bakerySystem) {
+    public void initializeFoodItem() {
         List<String> foodItems = readFile("foodItem.csv");
         for (String foodItem : foodItems) {
             String[] f = foodItem.split(",");
@@ -477,7 +475,7 @@ public class BakerySystem {
                 aFoodItem.setFoodItemName(f[1]);
                 aFoodItem.setFoodType(f[2]);
                 aFoodItem.setCurrentPrice(Double.parseDouble(f[3]));
-                bakerySystem.getFoodList().add(aFoodItem);
+                foodList.add(aFoodItem);
             }
         }
     }
@@ -828,7 +826,7 @@ public class BakerySystem {
         return daysSold;
     }
 
-    public static boolean validateUser(String account, String password, BakerySystem bakerySystem) {
+    public boolean validateUser(String account, String password) {
         List<String> users = readFile("user.csv");
         for (String user : users) {
             String[] u = user.split(",");
@@ -838,7 +836,7 @@ public class BakerySystem {
                 User aUser = new User(userId, u[1], u[2], u[3], u[4], u[5], u[6], u[7], u[8]);
                 List<String> stores = readFile("store.csv");
                 ArrayList<Store> storeList = new ArrayList<>();
-                bakerySystem.getBakery().setListOfStore(storeList);
+                bakery.setListOfStore(storeList);
                 for (String store : stores) {
                     String[] s = store.split(",");
                     String[] storeIds = u[9].split("\\|");
@@ -868,7 +866,7 @@ public class BakerySystem {
                         }
                     }
                 }
-                initializeFoodItem(bakerySystem);
+                initializeFoodItem();
                 return true;
             }
         }

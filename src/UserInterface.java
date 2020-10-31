@@ -128,7 +128,7 @@ public class UserInterface {
         System.out.println("--Enter your employee id or email:" + account);
         System.out.println("--Enter your password:" + password);
 
-        if (bakerySystem.validateUser(account, password, bakerySystem))
+        if (bakerySystem.validateUser(account, password))
             return true;
         else
             return false;
