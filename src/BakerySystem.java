@@ -214,7 +214,7 @@ public class BakerySystem {
             currentStore.getListOfOrder().add(aOrder);
             String orderId = createOrderId(aOrder);
             aOrder.setOrderId(orderId);
-            // Add the order into order databse
+            // Add the order into order database
             addOrderInDB(aOrder, currentStore);
             // Update the inventory
             updateInventoryInDB(aOrder, currentStore);
@@ -604,13 +604,23 @@ public class BakerySystem {
             }
         }
     }
+
+    /**
+     * Update the inventory objects into database
+     * @param aOrder
+     *        a Order object
+     * @param currentStore
+     *        a Store object represents the current operated store
+     */
     public void updateInventoryInDB(Order aOrder, Store currentStore) {
         List<String> inventories = readFile("inventory.csv");
+        // four arrayList storing four column
         ArrayList<String> storeIds = new ArrayList<>();
         ArrayList<String> itemIds = new ArrayList<>();
         ArrayList<String> itemQuantity = new ArrayList<>();
         ArrayList<String> itemAddedD = new ArrayList<>();
 
+        // add the data into arrayList
         for (String inventory:inventories){
             String[] column = inventory.split(",");
             storeIds.add(column[0]);
@@ -619,6 +629,7 @@ public class BakerySystem {
             itemAddedD.add(column[3]);
         }
 
+        // change the old quantity of items using new quantity
         for (Map.Entry<FoodItem, Integer> entry : aOrder.getQuantity().entrySet()) {
             for (int index = 0; index < storeIds.size(); index++){
                 if (itemIds.get(index).equals(entry.getKey().getItemNumber()) &&
@@ -634,6 +645,8 @@ public class BakerySystem {
                 };
             }
         }
+
+        //write into file
         BufferedWriter out;
         String fileName = "Inventory.csv";
         try {
@@ -658,14 +671,29 @@ public class BakerySystem {
         }
     }
 
+    /**
+     * Check if the quantity of items is enough in one store
+     * when a new order is creating
+     * @param itemNumber
+     *        the ID of item need to be checked
+     * @param s
+     *        a string type number represents the quantity of item needs to be removed form inventory
+     * @param currentStore
+     *        a Store object which is operated
+     * @return
+     *        a boolean type represents if the quantity input is valid
+     */
     public boolean validateQuantityCheck(String itemNumber, String s, Store currentStore) {
+        // first check if the string is a number
         boolean check = isNumeric(s);
         if (!check) {
             return false;
         }
+        // next ensure it is positive
         if (Integer.parseInt(s) <= 0){
             return false;
         }
+        // check if the item is enough in inventory
         for (Inventory inventory : currentStore.getListOfInventory()) {
             if (itemNumber.equals(inventory.getItemNumber())) {
                 int currentNumber = inventory.getQuantity();
@@ -675,10 +703,17 @@ public class BakerySystem {
         return false;
     }
 
+    /**
+     * Ask the owner to choose a store he/she wants to manage
+     * @return
+     *        a Store object represents the owner's choice
+     */
     public Store chooseStore() {
+        // ask the owner input a id
         System.out.println("-- Please enter the ID of store you want to check: ");
         Scanner sc = new Scanner(System.in);
         String storeChose = sc.nextLine();
+        // check if this id is valid
         boolean isNumeric;
         do {
             isNumeric = true;
@@ -693,12 +728,14 @@ public class BakerySystem {
                 System.out.println("!Error: Invalid store ID");
                 isNumeric = false;
             }
+            // if invalid, ask the owner to enter again
             if (!isNumeric) {
                 System.out.println("***************************************");
                 System.out.println("-- Please enter the ID of store again: ");
                 storeChose = sc.nextLine();
             }
         } while (!isNumeric);
+        // get the Store object
         for (Store store : bakery.getListOfStore()) {
             if (storeChose.equals(store.getStoreId())) {
                 return store;
@@ -708,8 +745,14 @@ public class BakerySystem {
     }
 
 
+    /**
+     * The main menu of the program, according to different type of user, the menu can be different
+     * @param currentUser
+     *        User object represent the current user of the program
+     *
+     */
     public void mainOption(User currentUser) {
-        ;
+        // get the choice of the user
         boolean isContinue = true;
         Scanner console = new Scanner(System.in);
         String currentUserName = currentUser.getUserName();
@@ -718,6 +761,7 @@ public class BakerySystem {
         boolean firstLogin = true;
         while (isContinue) {
             String selection = "";
+            // for staff and Manager
             if (currentUserType.equals("Staff") || currentUserType.equals("Manager")) {
                 UserInterface.displayHomeScreen(currentUserName, currentUserType, currentStore.getStoreId());
                 currentStore = bakery.getListOfStore().get(0);
@@ -731,12 +775,14 @@ public class BakerySystem {
                         break;
                     case "0":
                         isContinue = false;
+                    // if the user choose other option
                     default:
                         System.out.println("!Error: Your selection is not valid or still in development!");
                         System.out.println(
                                 "****************************************\n" + "Please select the correct option.");
                 }
             }
+            // for the owner, only the first time when logging needs to choose a store
             else if (currentUserType.equals("Owner")) {
                 if (firstLogin) {
                     currentStore = chooseStore();
@@ -750,6 +796,7 @@ public class BakerySystem {
                     case "8" -> generateReport(currentUser, currentStore);
                     case "0" -> isContinue = false;
                     case "C" -> currentStore = chooseStore();
+                    // if the user choose invalid option
                     default -> {
                         System.out.println("!Error: Your selection is not valid or still in development!");
                         System.out.println(
