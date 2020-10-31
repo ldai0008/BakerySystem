@@ -556,22 +556,26 @@ public class BakerySystem {
     /**
      * Ask the user to select the item from the
      * @param foodItems
-     *
+     *        A arraylist contains all items need to be selected
      * @return
+     *        a string represents the option the user selects
      */
     public String selectItem(ArrayList<FoodItem> foodItems) {
         String selection;
         while (true) {
 
             int index = 1;
+            // print out the message, each line for each item
             for (FoodItem foodItem : foodItems) {
                 System.out.println(index + ". " + foodItem.getFoodItemName());
                 index += 1;
             }
+            // last line for the back to previous menu option
             System.out.println(index + ". " + "Back to previous menu");
             Scanner console = new Scanner(System.in);
             selection = console.nextLine();
             selection = selection.strip();
+            // validate the selection
             if (!isNumeric(selection) || Integer.parseInt(selection) > index + 1||
                     Integer.parseInt(selection) < 1 || selection.length() == 0) {
                 System.out.println("!Error: Your selection is not valid!");
@@ -582,7 +586,7 @@ public class BakerySystem {
         }
     }
 
-    public static void updateNewestInventory(Store currentStore) {
+    public void updateNewestInventory(Store currentStore) {
         List<String> inventories = readFile("inventory.csv");
         currentStore.getListOfInventory().clear();
         for (String inventory : inventories) {
