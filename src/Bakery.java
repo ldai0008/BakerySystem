@@ -1,23 +1,22 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Bakery {
 
-	public Bakery() {
-		super();
-	}
+	private ArrayList<Store> listOfStore;
 
-	public Bakery(List<Store> listOfStore) {
-		super();
+	public Bakery() {
+		this.listOfStore = new ArrayList<>();
+	}
+	public Bakery(ArrayList<Store> listOfStore) {
 		this.listOfStore = listOfStore;
 	}
 
-	private List<Store> listOfStore;
-
-	public List<Store> getListOfStore() {
+	public ArrayList<Store> getListOfStore() {
 		return listOfStore;
 	}
 
-	public void setListOfStore(List<Store> listOfStore) {
+	public void setListOfStore(ArrayList<Store> listOfStore) {
 		this.listOfStore = listOfStore;
 	}
 

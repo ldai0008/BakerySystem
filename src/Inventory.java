@@ -5,14 +5,12 @@ public class Inventory {
 	private String dateAdded;
 
 	public Inventory() {
-		super();
 		this.itemNumber = "";
 		this.quantity = 0;
 		this.dateAdded = "";
 	}
 
 	public Inventory(String itemNumber, int quantity, String dateAdded) {
-		super();
 		this.itemNumber = itemNumber;
 		this.quantity = quantity;
 		this.dateAdded = dateAdded;

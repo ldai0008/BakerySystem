@@ -1,7 +1,4 @@
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -111,7 +108,7 @@ public class BakerySystem {
         FoodItem aFoodItem = new FoodItem();
         do {
             UserInterface.displayBakeShop();
-            UserInterface.updateNewestInventory(currentStore);
+            updateNewestInventory(currentStore);
             for (FoodItem foodItem : foodList) {
                 if (foodItem.getFoodItemName().equals("roast coffee beans")) {
                     aFoodItem = foodItem;
@@ -221,7 +218,7 @@ public class BakerySystem {
             UserInterface.displayBakeShop();
             displayCurrentItem(aOrder);
             System.out.println("            Total cost:" + aOrder.getTotalCost());
-            UserInterface.updateNewestInventory(currentStore);
+            updateNewestInventory(currentStore);
             do {
                 if (!nameCheck) {
                     System.out.println("!Error: The item name is not valid!");
@@ -338,7 +335,7 @@ public class BakerySystem {
     }
 
     public String createOrderId(Order aOrder) {
-        List<String> orders = UserInterface.readFile("order.csv");
+        List<String> orders = readFile("order.csv");
         int biggest = 0;
         for (String order : orders) {
             String[] o = order.split(",");
@@ -384,6 +381,44 @@ public class BakerySystem {
         return 0;
     }
 
+    public static void initializeFoodItem(BakerySystem bakerySystem) {
+        List<String> foodItems = readFile("foodItem.csv");
+        for (String foodItem : foodItems) {
+            String[] f = foodItem.split(",");
+            if (!f[2].strip().equals("Material")) {
+                FoodItem aFoodItem = new FoodItem();
+                aFoodItem.setItemNumber(f[0]);
+                aFoodItem.setFoodItemName(f[1]);
+                aFoodItem.setFoodType(f[2]);
+                aFoodItem.setCurrentPrice(Double.parseDouble(f[3]));
+                bakerySystem.getFoodList().add(aFoodItem);
+            }
+        }
+    }
+    public static List<String> readFile(String fileName) {
+        ArrayList<String> strings = new ArrayList<String>();
+        try {
+            FileReader inputFile = new FileReader(fileName);
+            try {
+                Scanner parser = new Scanner(inputFile);
+                parser.nextLine();
+                while (parser.hasNextLine()) {
+                    String line = parser.nextLine();
+                    if (line.isEmpty())
+                        continue;
+                    strings.add(line);
+                }
+            } finally {
+                inputFile.close();
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(fileName + " not found");
+        } catch (IOException e) {
+            System.out.println("Unexpected I/O exception occur");
+        }
+        return strings;
+    }
+
     public ArrayList<FoodItem> searchItems(String s, Store currentStore) {
         ArrayList<FoodItem> items = new ArrayList<>();
         s = s.strip();
@@ -424,8 +459,19 @@ public class BakerySystem {
         }
     }
 
+    public static void updateNewestInventory(Store currentStore) {
+        List<String> inventories = readFile("inventory.csv");
+        currentStore.getListOfInventory().clear();
+        for (String inventory : inventories) {
+            String[] i = inventory.split(",");
+            if (i[0].equals(currentStore.getStoreId())) {
+                Inventory aInventory = new Inventory(i[1], Integer.parseInt(i[2]), i[3]);
+                currentStore.getListOfInventory().add(aInventory);
+            }
+        }
+    }
     public boolean updateInventoryInDB(Order aOrder, Store currentStore) {
-        List<String> inventories = UserInterface.readFile("inventory.csv");
+        List<String> inventories = readFile("inventory.csv");
         ArrayList<String> storeIds = new ArrayList<>();
         ArrayList<String> itemIds = new ArrayList<>();
         ArrayList<String> itemQuantity = new ArrayList<>();
@@ -679,6 +725,53 @@ public class BakerySystem {
         return daysSold;
     }
 
+    public static boolean validateUser(String account, String password, BakerySystem bakerySystem) {
+        List<String> users = readFile("user.csv");
+        for (String user : users) {
+            String[] u = user.split(",");
+            if ((u[0].toLowerCase().equals(account.toLowerCase()) || u[2].equals(account))
+                    && u[3].equals(password)) {
+                int userId = Integer.parseInt(u[0]);
+                User aUser = new User(userId, u[1], u[2], u[3], u[4], u[5], u[6], u[7], u[8]);
+                List<String> stores = readFile("store.csv");
+                ArrayList<Store> storeList = new ArrayList<>();
+                bakerySystem.getBakery().setListOfStore(storeList);
+                for (String store : stores) {
+                    String[] s = store.split(",");
+                    String[] storeIds = u[9].split("\\|");
+                    for (String storeId : storeIds) {
+                        if (s[0].equals(storeId)) {
+                            Store aStore = new Store();
+                            aStore.setStoreId(s[0]);
+                            aStore.setStoreAddress(s[1]);
+                            aStore.setStoreContactNumber(s[2]);
+                            ArrayList<User> userList = new ArrayList<>();
+                            userList.add(aUser);
+                            aStore.setListOfUser(userList);
+                            List<String> inventory = readFile("inventory.csv");
+                            ArrayList<Inventory> inventoryList = new ArrayList<>();
+                            for (String item : inventory) {
+                                String[] i = item.split(",");
+                                Inventory anItem = new Inventory();
+                                if (i[0].equals(s[0])) {
+                                    anItem.setItemNumber(i[1]);
+                                    anItem.setQuantity(Integer.parseInt(i[2]));
+                                    anItem.setDateAdded(i[3]);
+                                    inventoryList.add(anItem);
+                                }
+                            }
+                            aStore.setListOfInventory(inventoryList);
+                            storeList.add(aStore);
+                        }
+                    }
+                }
+                initializeFoodItem(bakerySystem);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int setLowInventoryBar() {
         System.out.println("-- Please enter the number to set the bar for low inventory items: ");
         Scanner sc = new Scanner(System.in);
@@ -705,7 +798,7 @@ public class BakerySystem {
     }
 
     public void generateReportOfDaysMadeTheMostSold(String storeId) {
-        List<String> orders = UserInterface.readFile("order.csv");
+        List<String> orders = readFile("order.csv");
         Map<String, Double> daysSold = originDays();
         for (String order : orders) {
             String[] quantities = order.split(",");
@@ -772,7 +865,7 @@ public class BakerySystem {
     }
 
     public void generateReportOfSoldCoffee(List<FoodItem> foodList, String storeId) {
-        List<String> orders = UserInterface.readFile("order.csv");
+        List<String> orders = readFile("order.csv");
         int totalNum = 0;
         for (String order : orders) {
             String[] quantities = order.split(",");
@@ -805,7 +898,7 @@ public class BakerySystem {
     }
 
     public void generateReportOfSoldCoffeeBean(String storeId) {
-        List<String> orders = UserInterface.readFile("order.csv");
+        List<String> orders = readFile("order.csv");
         int totalNum = 0;
         for (String order : orders) {
             String[] quantities = order.split(",");
@@ -833,7 +926,7 @@ public class BakerySystem {
     }
 
     public void generateReportOfSoldFoodItem(String storeId) {
-        List<String> orders = UserInterface.readFile("order.csv");
+        List<String> orders = readFile("order.csv");
         int totalNum = 0;
         for (String order : orders) {
             String[] quantities = order.split(",");
@@ -853,7 +946,7 @@ public class BakerySystem {
     }
 
     public void generateReportOfTotalSold(String storeId) {
-        List<String> orders = UserInterface.readFile("order.csv");
+        List<String> orders = readFile("order.csv");
         double totalSale = 0;
         String orderStoreId = "0";
         for (String order : orders) {
@@ -873,7 +966,7 @@ public class BakerySystem {
     }
 
     public void generateReportOfTypeOfCoffeeSoldMost(List<FoodItem> foodList, String storeId) {
-        List<String> orders = UserInterface.readFile("order.csv");
+        List<String> orders = readFile("order.csv");
         Map<String, Integer> coffeeSold = new HashMap<>();
         for (String order : orders) {
             String[] quantities = order.split(",");
@@ -931,7 +1024,7 @@ public class BakerySystem {
 
     public void generateReport(User currentUser, Store store) {
         int choice = chooseReport();
-        UserInterface.updateNewestInventory(store);
+        updateNewestInventory(store);
         if (choice == 1) {
             Report reportOfLowInventory = new Report(LocalDate.now(), "items low in inventory",
                     "inventory report", store);

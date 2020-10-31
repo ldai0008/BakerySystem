@@ -122,21 +122,6 @@ public class UserInterface {
         return true;
     }
 
-    public static void initializeFoodItem(BakerySystem bakerySystem) {
-        List<String> foodItems = readFile("foodItem.csv");
-        for (String foodItem : foodItems) {
-            String[] f = foodItem.split(",");
-            if (!f[2].strip().equals("Material")) {
-                FoodItem aFoodItem = new FoodItem();
-                aFoodItem.setItemNumber(f[0]);
-                aFoodItem.setFoodItemName(f[1]);
-                aFoodItem.setFoodType(f[2]);
-                aFoodItem.setCurrentPrice(Double.parseDouble(f[3]));
-                bakerySystem.getFoodList().add(aFoodItem);
-            }
-        }
-    }
-
     public static boolean login(BakerySystem bakerySystem) {
         Scanner console = new Scanner(System.in);
         System.out.println("--Enter your employee id or email:");
@@ -151,7 +136,7 @@ public class UserInterface {
         System.out.println("--Enter your employee id or email:" + account);
         System.out.println("--Enter your password:" + password);
 
-        if (validateUser(account, password, bakerySystem))
+        if (bakerySystem.validateUser(account, password, bakerySystem))
             return true;
         else
             return false;
@@ -178,40 +163,6 @@ public class UserInterface {
 
     }
 
-    public static List<String> readFile(String fileName) {
-        ArrayList<String> strings = new ArrayList<String>();
-        try {
-            FileReader inputFile = new FileReader(fileName);
-            try {
-                Scanner parser = new Scanner(inputFile);
-                parser.nextLine();
-                while (parser.hasNextLine()) {
-                    String line = parser.nextLine();
-                    if (line.isEmpty())
-                        continue;
-                    strings.add(line);
-                }
-            } finally {
-                inputFile.close();
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println(fileName + " not found");
-        } catch (IOException e) {
-            System.out.println("Unexpected I/O exception occur");
-        }
-        return strings;
-    }
-    public static void updateNewestInventory(Store currentStore) {
-        List<String> inventories = UserInterface.readFile("inventory.csv");
-        currentStore.getListOfInventory().clear();
-        for (String inventory : inventories) {
-            String[] i = inventory.split(",");
-            if (i[0].equals(currentStore.getStoreId())) {
-                Inventory aInventory = new Inventory(i[1], Integer.parseInt(i[2]), i[3]);
-                currentStore.getListOfInventory().add(aInventory);
-            }
-        }
-    }
     public static void displayReportTitle(Report report, Store store) {
         displayBakeShop();
         System.out.println("Report: ");
@@ -221,54 +172,6 @@ public class UserInterface {
         System.out.println("storeId: " + store.getStoreId());
         System.out.println("****************************************");
     }
-
-    public static boolean validateUser(String account, String password, BakerySystem bakerySystem) {
-        List<String> users = readFile("user.csv");
-        for (String user : users) {
-            String[] u = user.split(",");
-            if ((u[0].toLowerCase().equals(account.toLowerCase()) || u[2].equals(account))
-                    && u[3].equals(password)) {
-                int userId = Integer.parseInt(u[0]);
-                User aUser = new User(userId, u[1], u[2], u[3], u[4], u[5], u[6], u[7], u[8]);
-                List<String> stores = readFile("store.csv");
-                ArrayList<Store> storeList = new ArrayList<>();
-                bakerySystem.getBakery().setListOfStore(storeList);
-                for (String store : stores) {
-                    String[] s = store.split(",");
-                    String[] storeIds = u[9].split("\\|");
-                    for (String storeId : storeIds) {
-                        if (s[0].equals(storeId)) {
-                            Store aStore = new Store();
-                            aStore.setStoreId(s[0]);
-                            aStore.setStoreAddress(s[1]);
-                            aStore.setStoreContactNumber(s[2]);
-                            ArrayList<User> userList = new ArrayList<>();
-                            userList.add(aUser);
-                            aStore.setListOfUser(userList);
-                            List<String> inventory = readFile("inventory.csv");
-                            ArrayList<Inventory> inventoryList = new ArrayList<>();
-                            for (String item : inventory) {
-                                String[] i = item.split(",");
-                                Inventory anItem = new Inventory();
-                                if (i[0].equals(s[0])) {
-                                    anItem.setItemNumber(i[1]);
-                                    anItem.setQuantity(Integer.parseInt(i[2]));
-                                    anItem.setDateAdded(i[3]);
-                                    inventoryList.add(anItem);
-                                }
-                            }
-                            aStore.setListOfInventory(inventoryList);
-                            storeList.add(aStore);
-                        }
-                    }
-                }
-                initializeFoodItem(bakerySystem);
-                return true;
-            }
-        }
-        return false;
-    }
-
 
 
 }
