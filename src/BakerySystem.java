@@ -451,6 +451,7 @@ public class BakerySystem {
      * @param currentStore
      *        the store is creating a new order
      * @return
+     *        the quantity of a item in a particular store's inventory
      */
     public int getFoodItemQuantity(String itemNumber, Store currentStore) {
         for (Inventory inventory : currentStore.getListOfInventory()) {
@@ -461,6 +462,11 @@ public class BakerySystem {
         return 0;
     }
 
+    /**
+     * Read the data for a csv file, and creating FoodItem object for each row in the file
+     * @param bakerySystem
+     *
+     */
     public static void initializeFoodItem(BakerySystem bakerySystem) {
         List<String> foodItems = readFile("foodItem.csv");
         for (String foodItem : foodItems) {
@@ -476,6 +482,13 @@ public class BakerySystem {
         }
     }
 
+    /**
+     * Check if a string is a correct number
+     * @param s
+     *        a string
+     * @return
+     *        the result of checking
+     */
     public boolean isNumeric(String s) {
         for (int j = 0; j < s.length(); j++) {
             if (!(s.charAt(j) >= 48 && s.charAt(j) <= 57)) {
@@ -485,6 +498,12 @@ public class BakerySystem {
         return true;
     }
 
+    /**
+     * The method to read a file
+     * @param fileName
+     *        the name of the file e
+     * @return
+     */
     public static List<String> readFile(String fileName) {
         ArrayList<String> strings = new ArrayList<>();
         try {
