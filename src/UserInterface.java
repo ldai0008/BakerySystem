@@ -1,8 +1,3 @@
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -128,16 +123,13 @@ public class UserInterface {
         System.out.println("--Enter your employee id or email:" + account);
         System.out.println("--Enter your password:" + password);
 
-        if (bakerySystem.validateUser(account, password))
-            return true;
-        else
-            return false;
+        return bakerySystem.validateUser(account, password);
 
     }
 
 
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         while (true) {
             BakerySystem bakerySystem = new BakerySystem();
             boolean check;
