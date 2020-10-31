@@ -152,7 +152,7 @@ public class UserInterface {
                 check = login(bakerySystem);
             }
             User currentUser = bakerySystem.getBakery().getListOfStore().get(0).getListOfUser().get(0);
-            bakerySystem.mainOption(currentUser, bakerySystem);
+            bakerySystem.mainOption(currentUser);
         }
 
     }

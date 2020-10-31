@@ -686,7 +686,7 @@ public class BakerySystem {
     }
 
 
-    public void mainOption(User currentUser, BakerySystem bakerySystem) {
+    public void mainOption(User currentUser) {
         ;
         boolean isContinue = true;
         Scanner console = new Scanner(System.in);
