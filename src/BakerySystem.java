@@ -160,7 +160,7 @@ public class BakerySystem {
                 if (phoneNumber.length() == 0) {
                     System.out.println("!Error:The phone number cannot be blank");
                     isNumeric = false;
-                } else if (!UserInterface.isNumeric(phoneNumber)) {
+                } else if (!isNumeric(phoneNumber)) {
                     System.out.println("!Error:The phone number must only contains number");
                     isNumeric = false;
                 }
@@ -395,6 +395,16 @@ public class BakerySystem {
             }
         }
     }
+
+    public boolean isNumeric(String s) {
+        for (int j = 0; j < s.length(); j++) {
+            if (!(s.charAt(j) >= 48 && s.charAt(j) <= 57)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static List<String> readFile(String fileName) {
         ArrayList<String> strings = new ArrayList<String>();
         try {
@@ -449,7 +459,7 @@ public class BakerySystem {
             Scanner console = new Scanner(System.in);
             selection = console.nextLine();
             selection = selection.strip();
-            if (!UserInterface.isNumeric(selection) || Integer.parseInt(selection) > index + 1||
+            if (!isNumeric(selection) || Integer.parseInt(selection) > index + 1||
                     Integer.parseInt(selection) < 1 || selection.length() == 0) {
                 System.out.println("!Error: Your selection is not valid!");
                 System.out.println("****************************************\n" + "Please try selecting a option again.");
@@ -527,7 +537,7 @@ public class BakerySystem {
     }
 
     public boolean validateQuantityCheck(String itemNumber, String s, Store currentStore) {
-        boolean check = UserInterface.isNumeric(s);
+        boolean check = isNumeric(s);
         if (!check) {
             return false;
         }
@@ -553,7 +563,7 @@ public class BakerySystem {
             if (storeChose.length() == 0) {
                 System.out.println("!Error: The storeID cannot be blank");
                 isNumeric = false;
-            } else if (!UserInterface.isNumeric(storeChose)) {
+            } else if (!isNumeric(storeChose)) {
                 System.out.println("!Error: Invalid input");
                 isNumeric = false;
             } else if (Integer.parseInt(storeChose) < 1 ||
@@ -697,7 +707,7 @@ public class BakerySystem {
             if (option.length() == 0) {
                 System.out.println("!Error: The option cannot be blank");
                 isNumeric = false;
-            } else if (!UserInterface.isNumeric(option)) {
+            } else if (!isNumeric(option)) {
                 System.out.println("!Error: Please enter a number to select a option");
                 isNumeric = false;
             } else if (Integer.parseInt(option) > 8 || Integer.parseInt(option) < 1) {
@@ -782,7 +792,7 @@ public class BakerySystem {
             if (barForLowInventory.length() == 0) {
                 System.out.println("!Error: The standard of low inventory cannot be blank");
                 isNumeric = false;
-            } else if (!UserInterface.isNumeric(barForLowInventory)) {
+            } else if (!isNumeric(barForLowInventory)) {
                 System.out.println("!Error: The standard should be a positive number");
                 isNumeric = false;
             }

@@ -113,15 +113,6 @@ public class UserInterface {
         System.out.println("8. Back to home screen");
     }
 
-    public static boolean isNumeric(String s) {
-        for (int j = 0; j < s.length(); j++) {
-            if (!(s.charAt(j) >= 48 && s.charAt(j) <= 57)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public static boolean login(BakerySystem bakerySystem) {
         Scanner console = new Scanner(System.in);
         System.out.println("--Enter your employee id or email:");
