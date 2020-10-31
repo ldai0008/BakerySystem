@@ -529,15 +529,20 @@ public class BakerySystem {
      * @param s
      *        a string supposed to be part of the item name
      * @param currentStore
+     *        THe current store in operation
      * @return
+     *        an ArrayList contains all food item whose name contains the string input
      */
     public ArrayList<FoodItem> searchItems(String s, Store currentStore) {
         ArrayList<FoodItem> items = new ArrayList<>();
         s = s.strip();
+        // find the item name containing the string from the food list
         for (FoodItem aFoodItem : foodList) {
+            // the roast coffee beans cannot shown in normal order, it is just for advance order
             if (aFoodItem.getFoodItemName().strip().toLowerCase().contains(s)
                     && !aFoodItem.getFoodItemName().strip().equals("roast coffee beans")) {
                 String itemNumber = aFoodItem.getItemNumber();
+                // double check, make sure the item is in both the food list and inventory
                 for (Inventory inventory : currentStore.getListOfInventory()) {
                     if (itemNumber.equals(inventory.getItemNumber()) && inventory.getQuantity() > 0) {
                         items.add(aFoodItem);
@@ -548,6 +553,12 @@ public class BakerySystem {
         return items;
     }
 
+    /**
+     * Ask the user to select the item from the
+     * @param foodItems
+     *
+     * @return
+     */
     public String selectItem(ArrayList<FoodItem> foodItems) {
         String selection;
         while (true) {
