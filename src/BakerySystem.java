@@ -145,7 +145,7 @@ public class BakerySystem {
                 if (!quantityCheck) {
                     System.out.println("!Error: The item quantity is not valid!");
                     System.out.println("The current quantity in inventory for this item is:");
-                    System.out.println(getFoodItemQuantity(itemNumber, bakery, currentStore));
+                    System.out.println(getFoodItemQuantity(itemNumber, currentStore));
                     System.out.println(
                             "****************************************\n" + "-- Please try enter the item quantity again.");
                 } else{
@@ -287,7 +287,7 @@ public class BakerySystem {
                 if (!quantityCheck) {
                     System.out.println("!Error: The item quantity is not valid!");
                     System.out.println("The current quantity in inventory for this item is:");
-                    System.out.println(getFoodItemQuantity(itemNumber, bakery, currentStore));
+                    System.out.println(getFoodItemQuantity(itemNumber, currentStore));
                     System.out.println(
                             "****************************************\n" + "Please try enter the item quantity again.");
                 } else
@@ -444,7 +444,15 @@ public class BakerySystem {
         return LocalTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME);
     }
 
-    public int getFoodItemQuantity(String itemNumber, Bakery bakery, Store currentStore) {
+    /**
+     * Return the quantity of a food item in current store
+     * @param itemNumber
+     *        the ID of a item
+     * @param currentStore
+     *        the store is creating a new order
+     * @return
+     */
+    public int getFoodItemQuantity(String itemNumber, Store currentStore) {
         for (Inventory inventory : currentStore.getListOfInventory()) {
             if (itemNumber.equals(inventory.getItemNumber())) {
                 return inventory.getQuantity();
