@@ -53,7 +53,7 @@ public class UserInterface {
         System.out.println("    *****Welcome, " + userName + "(" + userType + ")*****");
         System.out.println("        You are in store *" + currentStore.getStoreId() + "*");
         switch (userType) {
-            case "Staff":
+            case "Staff" -> {
                 System.out.println("-- Please select one option by entering the number:");
                 System.out.println("1. Create new order");
                 System.out.println("2. Create new special order for roast coffee bean");
@@ -61,8 +61,8 @@ public class UserInterface {
                 System.out.println("4. Manage inventory");
                 System.out.println("5. View my profile");
                 System.out.println("0. Logout");
-                break;
-            case "Manager":
+            }
+            case "Manager" -> {
                 System.out.println("-- Please select one option by entering the number:");
                 System.out.println("1. Create new order");
                 System.out.println("2. Create new special order for roast coffee bean");
@@ -71,8 +71,8 @@ public class UserInterface {
                 System.out.println("5. Manage all advance order");
                 System.out.println("6. View my profile");
                 System.out.println("0. Logout");
-                break;
-            case "Owner":
+            }
+            case "Owner" -> {
                 System.out.println("-- Please select one option by entering the number:");
                 System.out.println("1. Create new order");
                 System.out.println("2. Create new special order for roast coffee bean");
@@ -85,11 +85,12 @@ public class UserInterface {
                 System.out.println("9. View my profile");
                 System.out.println("0. Logout");
                 System.out.println("C. Change current Store");
-                break;
-            default:
+            }
+            default -> {
                 System.out.println("-- Please select one option by entering the number:");
                 System.out.println("!Error: User Type is not valid!");
                 System.out.println("0. Logout");
+            }
         }
 
     }

@@ -35,9 +35,9 @@ public class BakerySystem {
     }
 
     /**
-     * Add the data of new order in database
+     * Add the data of new order in database(CSV file)
      * @param aOrder
-     *        The Order object of new order
+     *        The Order object of a order
      * @param currentStore
      *        The Store object of store generating the order
      */
@@ -48,26 +48,29 @@ public class BakerySystem {
             ArrayList<String> itemName = new ArrayList<>();
             ArrayList<String> itemPrice = new ArrayList<>();
             ArrayList<String> itemQuantity = new ArrayList<>();
+            // Storing the name of item, price of item and quantity of item in three Arraylist
             for (Map.Entry<FoodItem, Integer> entry : aOrder.getQuantity().entrySet()) {
                 itemName.add(entry.getKey().getFoodItemName());
                 itemPrice.add(String.valueOf(entry.getKey().getCurrentPrice()));
                 itemQuantity.add(String.valueOf(entry.getValue()));
             }
-            String n = "";
-            String q = "";
-            String p = "";
+            StringBuilder n = new StringBuilder();
+            StringBuilder q = new StringBuilder();
+            StringBuilder p = new StringBuilder();
             int length = itemName.size();
+            // Generate the format of database, using "|" to split the information of different items
             for (int i = 0; i < length; i++) {
                 if (i == length - 1) {
-                    n += itemName.get(i);
-                    q += itemQuantity.get(i);
-                    p += itemPrice.get(i);
+                    n.append(itemName.get(i));
+                    q.append(itemQuantity.get(i));
+                    p.append(itemPrice.get(i));
                 } else {
-                    n += itemName.get(i) + "|";
-                    q += itemQuantity.get(i) + "|";
-                    p += itemPrice.get(i) + "|";
+                    n.append(itemName.get(i)).append("|");
+                    q.append(itemQuantity.get(i)).append("|");
+                    p.append(itemPrice.get(i)).append("|");
                 }
             }
+            // Writing the data in CSV format
             out = new BufferedWriter(new FileWriter(fileName, true));
             out.write(currentStore.getStoreId() + "," + aOrder.getOrderId() + ","
                     + bakery.getListOfStore().get(0).getListOfUser().get(0).getUserId() + "," + n + "," + q + "," + p
@@ -75,6 +78,7 @@ public class BakerySystem {
                     + aOrder.getNameOfCustomer() + "," + aOrder.getOrderStatus() + "," + aOrder.getCustomerPhone() + ","
                     + aOrder.getLastModifiedBy() + "," + aOrder.getLastModifiedDate() + ","
                     + aOrder.getLastModifiedTime() + "\n");
+            // close the file
             out.close();
 
         } catch (FileNotFoundException e) {
@@ -84,8 +88,15 @@ public class BakerySystem {
         }
     }
 
+    /**
+     * Calculate the total price of a order
+     * @param aOrder
+     *        The Order object of new order
+     * @return the current total cost of a order
+     */
     public double calTotalCost(Order aOrder) {
         double totalCost = 0;
+        // Plus the price of each item in a order
         for (Map.Entry<FoodItem, Integer> entry : aOrder.getQuantity().entrySet()) {
             for (FoodItem foodItem : foodList) {
                 double currentPrice;
@@ -99,7 +110,11 @@ public class BakerySystem {
         return totalCost;
     }
 
-
+    /**
+     * Create a new advance order for roast coffee beans
+     * @param currentStore
+     *        The Store object of store generating the order
+     */
     public void createNewAdvanceOrder(Store currentStore) {
         AdvanceOrder aOrder = new AdvanceOrder();
         int itemQuantity = 0;
@@ -107,34 +122,43 @@ public class BakerySystem {
         String option;
         FoodItem aFoodItem = new FoodItem();
         do {
+            // Display the standard message
             UserInterface.displayBakeShop();
+            // Update the inventory
             updateNewestInventory(currentStore);
+            // Find the information of roast coffee beans
             for (FoodItem foodItem : foodList) {
                 if (foodItem.getFoodItemName().equals("roast coffee beans")) {
                     aFoodItem = foodItem;
                     break;
                 }
             }
+            // Store the roast coffee beans coffee beans with the quantity
             aOrder.getQuantity().put(aFoodItem, itemQuantity);
             String itemNumber = aFoodItem.getItemNumber();
+            // Display the information of current order
             displayCurrentItem(aOrder);
             System.out.println("            Total cost:" + aOrder.getTotalCost());
 
             do {
+                // Check if the quantity is valid
                 if (!quantityCheck) {
                     System.out.println("!Error: The item quantity is not valid!");
                     System.out.println("The current quantity in inventory for this item is:");
                     System.out.println(getFoodItemQuantity(itemNumber, bakery, currentStore));
                     System.out.println(
                             "****************************************\n" + "-- Please try enter the item quantity again.");
-                } else
+                } else{
                     System.out.println("--  Please enter the item's quantity:");
+                }
                 Scanner console = new Scanner(System.in);
                 String s = console.nextLine();
+                // Check if the input of entity is blank
                 if (s.length() == 0){
                     quantityCheck = false;
                     continue;
                 }
+                // Validate if the quantity of the item in inventory is enough
                 quantityCheck = validateQuantityCheck(itemNumber, s, currentStore);
                 if (quantityCheck) {
                     itemQuantity = Integer.parseInt(s);
@@ -145,9 +169,11 @@ public class BakerySystem {
             UserInterface.displayBakeShop();
             displayCurrentItem(aOrder);
             System.out.println("            Total cost:" + aOrder.getTotalCost());
+            // Ask the user about the next step
             option = UserInterface.displayCreateAdvanceOrderOption();
-        } while (option.equals("1"));
+        } while (option.equals("1")); // Check if the user wants to change the item number
 
+        // If the user choose to confirm the order
         if (option.equals("2")) {
             Scanner console = new Scanner(System.in);
             System.out.println("--  Enter the name of the customer:");
@@ -157,6 +183,7 @@ public class BakerySystem {
             boolean isNumeric;
             do {
                 isNumeric = true;
+                // Check if the phone number is valid
                 if (phoneNumber.length() == 0) {
                     System.out.println("!Error:The phone number cannot be blank");
                     isNumeric = false;
@@ -170,6 +197,7 @@ public class BakerySystem {
                     phoneNumber = console.nextLine();
                 }
             } while (!isNumeric);
+            // The order is confirmed, change the fields of the order
             String date = getDate();
             String time = getTime();
             aOrder.setOrderDate(date);
@@ -186,9 +214,12 @@ public class BakerySystem {
             currentStore.getListOfOrder().add(aOrder);
             String orderId = createOrderId(aOrder);
             aOrder.setOrderId(orderId);
+            // Add the order into order databse
             addOrderInDB(aOrder, currentStore);
+            // Update the inventory
             updateInventoryInDB(aOrder, currentStore);
             UserInterface.displayBakeShop();
+            // Display the successful message
             displayCurrentItem(aOrder);
             System.out.println("            Total cost:" + aOrder.getTotalCost());
             System.out.println("****************************************");
@@ -206,6 +237,11 @@ public class BakerySystem {
 
     }
 
+    /**
+     * Create the normal order
+     * @param currentStore
+     *        The Store object of store generating the order
+     */
     public void createNewOrder(Store currentStore) {
         String itemName;
         int itemQuantity = 0;
@@ -215,9 +251,11 @@ public class BakerySystem {
         String option;
         FoodItem aFoodItem;
         do {
+            // Display the standard message
             UserInterface.displayBakeShop();
             displayCurrentItem(aOrder);
             System.out.println("            Total cost:" + aOrder.getTotalCost());
+            // Update the current inventory
             updateNewestInventory(currentStore);
             do {
                 if (!nameCheck) {
@@ -228,6 +266,7 @@ public class BakerySystem {
                     System.out.println("-- Please enter the item's name:");
                 Scanner console = new Scanner(System.in);
                 itemName = console.nextLine();
+                // search the item names contains the word user enter
                 ArrayList<FoodItem> foodItems = searchItems(itemName, currentStore);
                 if (foodItems.size() == 0) {
                     nameCheck = false;
@@ -235,6 +274,7 @@ public class BakerySystem {
                 }
                 nameCheck = true;
                 System.out.println("-- Please select the item you want:");
+                // According to the selection of user, return different item
                 String selection = selectItem(foodItems);
                 if (Integer.parseInt(selection) != (foodItems.size() + 1)) {
                     aFoodItem = foodItems.get(Integer.parseInt(selection) - 1);
@@ -243,6 +283,7 @@ public class BakerySystem {
             } while (true);
             String itemNumber = aFoodItem.getItemNumber();
             do {
+                // Error message for invalid quantity
                 if (!quantityCheck) {
                     System.out.println("!Error: The item quantity is not valid!");
                     System.out.println("The current quantity in inventory for this item is:");
@@ -253,6 +294,7 @@ public class BakerySystem {
                     System.out.println("-- Please enter the item's quantity:");
                 Scanner console = new Scanner(System.in);
                 String s = console.nextLine();
+                // Check if the length of quantity is 0
                 if (s.length() == 0){
                     System.out.println("!Error: The item quantity can not be empty!");
                     System.out.println(
@@ -260,17 +302,20 @@ public class BakerySystem {
                     quantityCheck = true;
                     continue;
                 }
+                // check if the quantity is enough
                 quantityCheck = validateQuantityCheck(itemNumber, s, currentStore);
                 if (quantityCheck) {
                     itemQuantity = Integer.parseInt(s);
                 }
             } while (!quantityCheck);
 
+            // store the current item with its quantity
             aOrder.getQuantity().put(aFoodItem, itemQuantity);
             aOrder.setTotalCost(calTotalCost(aOrder));
             UserInterface.displayBakeShop();
             displayCurrentItem(aOrder);
             System.out.println("            Total cost:" + aOrder.getTotalCost());
+            // remove the item in order the user select
             do{
                 option = UserInterface.displayCreateOrderOption();
                 if (option.equals("2")) {
@@ -284,6 +329,7 @@ public class BakerySystem {
                     if (Integer.parseInt(selection) != (foodItems.size() + 1)) {
                         f = foodItems.get(Integer.parseInt(selection) - 1);
                     }
+                    // Delete the item in order
                     for (Map.Entry<FoodItem, Integer> entry : aOrder.getQuantity().entrySet()) {
                         aOrder.getQuantity().remove(f);
                         break;
@@ -295,8 +341,9 @@ public class BakerySystem {
 
             } while(option.equals("2"));
 
-        } while (option.equals("1") || option.equals("2"));
+        } while (option.equals("1"));
 
+        // user confirms the order
         if (option.equals("3")) {
             Scanner console = new Scanner(System.in);
             System.out.println("-- Enter the name of the customer:");
@@ -334,9 +381,18 @@ public class BakerySystem {
         }
     }
 
+    /**
+     * generate the order id using the format "xxxxxx-mmyyyy"
+     * @param aOrder
+     *        The order recently created which needs a new order id
+     * @return
+     *        a string represent the order ID
+     */
     public String createOrderId(Order aOrder) {
+        // read the CSV file
         List<String> orders = readFile("order.csv");
         int biggest = 0;
+        // get the biggest number in database
         for (String order : orders) {
             String[] o = order.split(",");
             String orderID = o[1];
@@ -345,16 +401,22 @@ public class BakerySystem {
             if (idNumber > biggest)
                 biggest = idNumber;
         }
+        // generate current order id
         int currentIdNumber = biggest + 1;
         String str = String.format("%06d", currentIdNumber);
         String year = aOrder.getOrderDate().split("-")[0];
         String month = aOrder.getOrderDate().split("-")[1];
-        String orderId = str + "-" + month + year;
-        return orderId;
+        return str + "-" + month + year;
     }
 
+    /**
+     * Display the message of current item in a order
+     * @param aOrder
+     *        a Order object
+     */
     public void displayCurrentItem(Order aOrder) {
         System.out.println("Id    " + "Name               " + "Quantity " + "Cost");
+        // ensure the output is in same format
         for (Map.Entry<FoodItem, Integer> entry : aOrder.getQuantity().entrySet()) {
             System.out.printf("%-6s", entry.getKey().getItemNumber());
             System.out.printf("%-19s", entry.getKey().getFoodItemName());
@@ -364,10 +426,20 @@ public class BakerySystem {
         }
     }
 
+    /**
+     * get the current date
+     * @return
+     *        a string represents the current date
+     */
     public String getDate() {
         return LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
     }
 
+    /**
+     * get the current time
+     * @return
+     *        a string represents the current time
+     */
     public String getTime() {
         return LocalTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME);
     }
@@ -406,10 +478,9 @@ public class BakerySystem {
     }
 
     public static List<String> readFile(String fileName) {
-        ArrayList<String> strings = new ArrayList<String>();
+        ArrayList<String> strings = new ArrayList<>();
         try {
-            FileReader inputFile = new FileReader(fileName);
-            try {
+            try (FileReader inputFile = new FileReader(fileName)) {
                 Scanner parser = new Scanner(inputFile);
                 parser.nextLine();
                 while (parser.hasNextLine()) {
@@ -418,8 +489,6 @@ public class BakerySystem {
                         continue;
                     strings.add(line);
                 }
-            } finally {
-                inputFile.close();
             }
         } catch (FileNotFoundException e) {
             System.out.println(fileName + " not found");
@@ -480,7 +549,7 @@ public class BakerySystem {
             }
         }
     }
-    public boolean updateInventoryInDB(Order aOrder, Store currentStore) {
+    public void updateInventoryInDB(Order aOrder, Store currentStore) {
         List<String> inventories = readFile("inventory.csv");
         ArrayList<String> storeIds = new ArrayList<>();
         ArrayList<String> itemIds = new ArrayList<>();
@@ -495,7 +564,6 @@ public class BakerySystem {
             itemAddedD.add(column[3]);
         }
 
-        int a = 0;
         for (Map.Entry<FoodItem, Integer> entry : aOrder.getQuantity().entrySet()) {
             for (int index = 0; index < storeIds.size(); index++){
                 if (itemIds.get(index).equals(entry.getKey().getItemNumber()) &&
@@ -504,14 +572,14 @@ public class BakerySystem {
                     int changeQuantity = entry.getValue();
                     int finalQuantity = currentQuantity - changeQuantity;
                     if (finalQuantity < 0){
-                        return false;
+                        return;
                     }
                     itemQuantity.set(index, "" + finalQuantity);
                     break;
                 };
             }
         }
-        BufferedWriter out = null;
+        BufferedWriter out;
         String fileName = "Inventory.csv";
         try {
         out = new BufferedWriter(new FileWriter(fileName));
@@ -533,7 +601,6 @@ public class BakerySystem {
             e.printStackTrace();
             System.exit(1);
         }
-        return true;
     }
 
     public boolean validateQuantityCheck(String itemNumber, String s, Store currentStore) {
@@ -623,25 +690,16 @@ public class BakerySystem {
                 UserInterface.displayHomeScreen(currentUserName, currentUserType, currentStore);
                 selection = console.nextLine();
                 switch (selection) {
-                    case "1":
-                        createNewOrder(currentStore);
-                        break;
-                    case "2":
-                        createNewAdvanceOrder(currentStore);
-                        break;
-                    case "8":
-                        generateReport(currentUser, currentStore);
-                        break;
-                    case "0":
-                        isContinue = false;
-                        break;
-                    case "C":
-                        currentStore = chooseStore();
-                        break;
-                    default:
+                    case "1" -> createNewOrder(currentStore);
+                    case "2" -> createNewAdvanceOrder(currentStore);
+                    case "8" -> generateReport(currentUser, currentStore);
+                    case "0" -> isContinue = false;
+                    case "C" -> currentStore = chooseStore();
+                    default -> {
                         System.out.println("!Error: Your selection is not valid or still in development!");
                         System.out.println(
                                 "****************************************\n" + "Please select the correct option.");
+                    }
                 }
             }
 
@@ -958,7 +1016,7 @@ public class BakerySystem {
     public void generateReportOfTotalSold(String storeId) {
         List<String> orders = readFile("order.csv");
         double totalSale = 0;
-        String orderStoreId = "0";
+        String orderStoreId;
         for (String order : orders) {
             String[] quantities = order.split(",");
             String date = quantities[7];
@@ -1083,7 +1141,7 @@ public class BakerySystem {
     }
 
     public String getWeek(String dates) {
-        String strWeek = "";
+        String strWeek;
 
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
@@ -1100,34 +1158,16 @@ public class BakerySystem {
         if (w == 0) {
             w = 7;
         }
-        switch (w) {
-            case 1:
-                strWeek = "Monday";
-                break;
-            case 2:
-                strWeek = "Tuesday";
-                break;
-            case 3:
-                strWeek = "Wednesday";
-                break;
-            case 4:
-                strWeek = "Thursday";
-                break;
-            case 5:
-                strWeek = "Friday";
-                break;
-            case 6:
-                strWeek = "Saturday";
-                break;
-            case 7:
-                strWeek = "Sunday";
-                break;
-            default:
-                strWeek = "";
-        }
-        ;
-
-
+        strWeek = switch (w) {
+            case 1 -> "Monday";
+            case 2 -> "Tuesday";
+            case 3 -> "Wednesday";
+            case 4 -> "Thursday";
+            case 5 -> "Friday";
+            case 6 -> "Saturday";
+            case 7 -> "Sunday";
+            default -> "";
+        };
         return strWeek;
     }
 
