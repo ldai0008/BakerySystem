@@ -586,11 +586,18 @@ public class BakerySystem {
         }
     }
 
+    /**
+     * update the inventory object using the newest dataset
+     * @param currentStore
+     *        the store is operated now
+     */
     public void updateNewestInventory(Store currentStore) {
         List<String> inventories = readFile("inventory.csv");
+        // clear all inventory object
         currentStore.getListOfInventory().clear();
         for (String inventory : inventories) {
             String[] i = inventory.split(",");
+            // create new inventory object
             if (i[0].equals(currentStore.getStoreId())) {
                 Inventory aInventory = new Inventory(i[1], Integer.parseInt(i[2]), i[3]);
                 currentStore.getListOfInventory().add(aInventory);
@@ -712,7 +719,7 @@ public class BakerySystem {
         while (isContinue) {
             String selection = "";
             if (currentUserType.equals("Staff") || currentUserType.equals("Manager")) {
-                UserInterface.displayHomeScreen(currentUserName, currentUserType, currentStore);
+                UserInterface.displayHomeScreen(currentUserName, currentUserType, currentStore.getStoreId());
                 currentStore = bakery.getListOfStore().get(0);
                 selection = console.nextLine();
                 switch (selection) {
@@ -735,7 +742,7 @@ public class BakerySystem {
                     currentStore = chooseStore();
                     firstLogin = false;
                 }
-                UserInterface.displayHomeScreen(currentUserName, currentUserType, currentStore);
+                UserInterface.displayHomeScreen(currentUserName, currentUserType, currentStore.getStoreId());
                 selection = console.nextLine();
                 switch (selection) {
                     case "1" -> createNewOrder(currentStore);
@@ -782,7 +789,6 @@ public class BakerySystem {
             callback.accept(currentUser);
         }
     }
-
 
     public boolean checkIfInLastMonth(String dates) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -1145,41 +1151,48 @@ public class BakerySystem {
             Report reportOfLowInventory = new Report(LocalDate.now(), "items low in inventory",
                     "inventory report", store);
             int lowInventory = setLowInventoryBar();
-            UserInterface.displayReportTitle(reportOfLowInventory, store);
+            UserInterface.displayReportTitle(reportOfLowInventory.getDateOfReport(),
+                    reportOfLowInventory.getNameOfReport(), reportOfLowInventory.getTypeOfReport(), store.getStoreId());
             generateReportOfLowInventory(store, foodList, lowInventory);
         } else if (choice == 2) {
             Report reportOfSoldFoodItem = new Report(LocalDate.now(), "Number of item sold in last month",
                     "business report", store);
-            UserInterface.displayReportTitle(reportOfSoldFoodItem, store);
+            UserInterface.displayReportTitle(reportOfSoldFoodItem.getDateOfReport(),
+                    reportOfSoldFoodItem.getNameOfReport(), reportOfSoldFoodItem.getTypeOfReport(), store.getStoreId());
             generateReportOfSoldFoodItem(store.getStoreId());
         } else if (choice == 3) {
             Report reportOfSoldFoodItem = new Report(LocalDate.now(), "Number of coffee sold in last month",
                     "business report", store);
-            UserInterface.displayReportTitle(reportOfSoldFoodItem, store);
+            UserInterface.displayReportTitle(reportOfSoldFoodItem.getDateOfReport(),
+                    reportOfSoldFoodItem.getNameOfReport(), reportOfSoldFoodItem.getTypeOfReport(), store.getStoreId());
             generateReportOfSoldCoffee(foodList, store.getStoreId());
         } else if (choice == 4) {
             Report reportOfSoldFoodItem = new Report(LocalDate.now(),
                     "Number of coffee bean sold in last month",
                     "business report", store);
-            UserInterface.displayReportTitle(reportOfSoldFoodItem, store);
+            UserInterface.displayReportTitle(reportOfSoldFoodItem.getDateOfReport(),
+                    reportOfSoldFoodItem.getNameOfReport(), reportOfSoldFoodItem.getTypeOfReport(),store.getStoreId());
             generateReportOfSoldCoffeeBean(store.getStoreId());
         } else if (choice == 5) {
             Report reportOfSoldFoodItem = new Report(LocalDate.now(),
                     "Type of coffee sold the most per store in the last month",
                     "business report", store);
-            UserInterface.displayReportTitle(reportOfSoldFoodItem, store);
+            UserInterface.displayReportTitle(reportOfSoldFoodItem.getDateOfReport(), reportOfSoldFoodItem.getNameOfReport()
+                    ,reportOfSoldFoodItem.getTypeOfReport(),store.getStoreId());
             generateReportOfTypeOfCoffeeSoldMost(foodList, store.getStoreId());
         } else if (choice == 6) {
             Report reportOfSoldFoodItem = new Report(LocalDate.now(),
                     "Days of the week that made the most sale in the last month per store",
                     "business report", store);
-            UserInterface.displayReportTitle(reportOfSoldFoodItem, store);
+            UserInterface.displayReportTitle(reportOfSoldFoodItem.getDateOfReport(),
+                    reportOfSoldFoodItem.getNameOfReport(), reportOfSoldFoodItem.getTypeOfReport(),store.getStoreId());
             generateReportOfDaysMadeTheMostSold(store.getStoreId());
         } else if (choice == 7) {
             Report reportOfSoldFoodItem = new Report(LocalDate.now(),
                     "Total sale made in dollars in the last month per store",
                     "business report", store);
-            UserInterface.displayReportTitle(reportOfSoldFoodItem, store);
+            UserInterface.displayReportTitle(reportOfSoldFoodItem.getDateOfReport(),reportOfSoldFoodItem.getNameOfReport(),
+                    reportOfSoldFoodItem.getTypeOfReport(), store.getStoreId());
             generateReportOfTotalSold(store.getStoreId());
         }  else{
             return;

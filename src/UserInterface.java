@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -43,10 +44,10 @@ public class UserInterface {
         return option;
     }
 
-    public static void displayHomeScreen(String userName, String userType, Store currentStore) {
+    public static void displayHomeScreen(String userName, String userType, String storeID) {
         displayBakeShop();
         System.out.println("    *****Welcome, " + userName + "(" + userType + ")*****");
-        System.out.println("        You are in store *" + currentStore.getStoreId() + "*");
+        System.out.println("        You are in store *" + storeID + "*");
         switch (userType) {
             case "Staff" -> {
                 System.out.println("-- Please select one option by entering the number:");
@@ -95,7 +96,15 @@ public class UserInterface {
         System.out.println("***************************************\n"
                 + "Please try login again.or contact the owner to reset the password.");
     }
-
+    public static void displayReportTitle(LocalDate reportDate, String reportName, String reportType, String storeID) {
+        UserInterface.displayBakeShop();
+        System.out.println("Report: ");
+        System.out.println("dateOfReport: " + reportDate);
+        System.out.println("nameOfReport: " + reportName);
+        System.out.println("typeOfReport: " + reportType);
+        System.out.println("storeId: " + storeID);
+        System.out.println("****************************************");
+    }
     public static void displayTrackBusinessOption() {
         displayBakeShop();
         System.out.println("-- Please select one option by entering the number:");
@@ -148,16 +157,5 @@ public class UserInterface {
         }
 
     }
-
-    public static void displayReportTitle(Report report, Store store) {
-        displayBakeShop();
-        System.out.println("Report: ");
-        System.out.println("dateOfReport: " + report.getDateOfReport());
-        System.out.println("nameOfReport: " + report.getNameOfReport());
-        System.out.println("typeOfReport: " + report.getTypeOfReport());
-        System.out.println("storeId: " + store.getStoreId());
-        System.out.println("****************************************");
-    }
-
 
 }
