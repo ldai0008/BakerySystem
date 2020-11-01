@@ -8,7 +8,12 @@ import java.util.List;
  * @data: 2020-11-1 9:00
  **/
 public class Store {
-
+	// The id of store for Store
+	// The address of store for Store
+	// The contact number of store for Store
+	// The list of user for Store
+	// The list of order for Store
+	// The list of inventory date for Store
 	private String storeId;
 	private String storeAddress;
 	private String storeContactNumber;
