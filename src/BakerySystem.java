@@ -1255,9 +1255,12 @@ public class BakerySystem {
             String[] quantity = quantities[4].split("\\|");
             String date = quantities[7];
             String orderStoreId = quantities[0];
+            // find the store
             if (orderStoreId.strip().equalsIgnoreCase(storeId.strip())) {
+                // check if is in last month
                 if (checkIfInLastMonth(date)) {
                     int index = 0;
+                    // find the items whose type is Coffee
                     for (String item : items) {
                         boolean foodCheck = false;
                         for (FoodItem foodItem : foodList) {
@@ -1267,6 +1270,7 @@ public class BakerySystem {
                                 break;
                             }
                         }
+                        // store the item with quantity sold
                         if (foodCheck) {
                             int currentQuantity = 0;
                             for (Map.Entry<String, Integer> entry : coffeeSold.entrySet()) {
