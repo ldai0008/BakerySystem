@@ -110,9 +110,13 @@ public class BakerySystem {
             out.close();
 
         } catch (FileNotFoundException e) {
-            System.out.println(fileName + " not found");
+            System.out.println("Necessary file " + fileName + " not found");
+            System.out.println("Please check the data file, then restart the program");
+            System.exit(1);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Unexpected I/O exception occur");
+            System.out.println("Please check the data file, then restart the program");
+            System.exit(1);
         }
     }
 
@@ -551,10 +555,12 @@ public class BakerySystem {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Necessary " + fileName + " not found");
+            System.out.println("Necessary file" + fileName + " not found");
+            System.out.println("Please check the data file, then restart the program");
             System.exit(1);
         } catch (IOException e) {
             System.out.println("Unexpected I/O exception occur");
+            System.out.println("Please check the data file, then restart the program");
             System.exit(1);
         }
         return strings;
@@ -699,10 +705,12 @@ public class BakerySystem {
         out.close();
 
         } catch (FileNotFoundException e) {
-            System.out.println("Necessary " + fileName + " not found");
+            System.out.println("Necessary file" + fileName + " not found");
+            System.out.println("Please check the data file, then restart the program");
             System.exit(1);
         } catch (IOException e) {
             System.out.println("Unexpected I/O exception occur");
+            System.out.println("Please check the data file, then restart the program");
             System.exit(1);
         }
     }
