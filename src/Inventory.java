@@ -6,7 +6,9 @@
  * @data: 2020-11-1 9:00
  **/
 public class Inventory {
-
+	// The number of item for Inventory
+	// The quantity for Inventory
+	// The added date for Inventory
 	private String itemNumber;
 	private Integer quantity;
 	private String dateAdded;
