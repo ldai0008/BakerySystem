@@ -7,29 +7,58 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.Consumer;
 
+/**
+ * @version: V1.0
+ * @author: Team_04
+ * @className: BakerySystem
+ * @description: Controller Class
+ * @data: 2020-11-1 9:00
+ **/
 public class BakerySystem {
 
+    // bakery which contains all stores
     private Bakery bakery;
+    // list of food items
     private List<FoodItem> foodList;
 
+    /**
+     * Constructor for objects of BakerySystem
+     * Default constructor
+     */
     public BakerySystem() {
         super();
         this.bakery = new Bakery();
         this.foodList = new ArrayList<>();
     }
 
+    /**
+     * Get Bakery
+     * @return bakery
+     */
     public Bakery getBakery() {
         return bakery;
     }
 
+    /**
+     * Set Bakery
+     * @param bakery
+     */
     public void setBakery(Bakery bakery) {
         this.bakery = bakery;
     }
 
+    /**
+     * get FoodList
+     * @return foodList
+     */
     public List<FoodItem> getFoodList() {
         return foodList;
     }
 
+    /**
+     * set FoodList
+     * @param foodList
+     */
     public void setFoodList(List<FoodItem> foodList) {
         this.foodList = foodList;
     }
@@ -809,7 +838,13 @@ public class BakerySystem {
 
     }
 
-
+    /**
+     * This function is used to call back to previous Option
+     * @param currentUser
+     *        User object represent the current user of the program
+     * @param callback
+     *        callback function
+     */
     public void previousOption(User currentUser, Consumer<User> callback) {
         System.out.println("");
         System.out.println("-- Please enter your choice: ");
@@ -827,6 +862,7 @@ public class BakerySystem {
             }
             Scanner sc = new Scanner(System.in);
             option = sc.nextLine();
+            // enter validation
             if (option.length() == 0){
                 check = false;
             }
@@ -837,6 +873,13 @@ public class BakerySystem {
         }
     }
 
+    /**
+     * This method is used to check if the date is in the last month from now.
+     * @param dates
+     *        date inserted
+     * @return boolean
+     *         if it is in the last month, return true; if not, return false.
+     */
     public boolean checkIfInLastMonth(String dates) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
@@ -856,6 +899,10 @@ public class BakerySystem {
         return !now.after(d);
     }
 
+    /**
+     * This method is used for user to choose report they want to check
+     * @return a integer of the report
+     */
     public int chooseReport() {
         UserInterface.displayTrackBusinessOption();
         Scanner sc = new Scanner(System.in);
@@ -882,6 +929,11 @@ public class BakerySystem {
         return Integer.parseInt(option);
     }
 
+    /**
+     * This method is used to define a map, which the key is the every day of the week,
+     * and the value is the sale of the day
+     * @return a map interface
+     */
     public Map<String, Double> originDays() {
         Map<String, Double> daysSold = new HashMap<>();
         daysSold.put("Monday", 0.0);
@@ -894,13 +946,24 @@ public class BakerySystem {
         return daysSold;
     }
 
+    /**
+     * This method is used to validate user
+     * @param account
+     *        account is the userId or userEmail inserted by the user
+     * @param password
+     *        the password entered by the user
+     * @return a boolean
+     *         if the user information is right, return true; if not, return false
+     */
     public boolean validateUser(String account, String password) {
         List<String> users = readFile("user.csv");
         for (String user : users) {
             String[] u = user.split(",");
+            // u[0] is the employee ID, u[2] is the employ Email, u[3] is the password
             if ((u[0].toLowerCase().equals(account.toLowerCase()) || u[2].equals(account))
                     && u[3].equals(password)) {
                 int userId = Integer.parseInt(u[0]);
+                // create the object of the user based on the user information
                 User aUser = new User(userId, u[1], u[2], u[3], u[4], u[5], u[6], u[7], u[8]);
                 List<String> stores = readFile("store.csv");
                 ArrayList<Store> storeList = new ArrayList<>();
@@ -909,7 +972,9 @@ public class BakerySystem {
                     String[] s = store.split(",");
                     String[] storeIds = u[9].split("\\|");
                     for (String storeId : storeIds) {
+                        // s[0] is the store ID
                         if (s[0].equals(storeId)) {
+                            // create the object of the store which the user belongs to
                             Store aStore = new Store();
                             aStore.setStoreId(s[0]);
                             aStore.setStoreAddress(s[1]);
@@ -918,6 +983,7 @@ public class BakerySystem {
                             userList.add(aUser);
                             aStore.setListOfUser(userList);
                             List<String> inventory = readFile("inventory.csv");
+                            // create the object of all inventory of the current store
                             ArrayList<Inventory> inventoryList = new ArrayList<>();
                             for (String item : inventory) {
                                 String[] i = item.split(",");
@@ -941,6 +1007,10 @@ public class BakerySystem {
         return false;
     }
 
+    /**
+     * This method is used to let the user to set the bar of low inventory
+     * @return a integer of the low inventory bar
+     */
     public int setLowInventoryBar() {
         System.out.println("-- Please enter the number to set the bar for low inventory items: ");
         Scanner sc = new Scanner(System.in);
@@ -966,6 +1036,11 @@ public class BakerySystem {
         return Integer.parseInt(barForLowInventory);
     }
 
+    /**
+     * This method is used to generate the report of days made the most sold in the last month
+     * @param storeId
+     *        the Id of the store which need to generate the report
+     */
     public void generateReportOfDaysMadeTheMostSold(String storeId) {
         List<String> orders = readFile("order.csv");
         Map<String, Double> daysSold = originDays();
@@ -975,6 +1050,7 @@ public class BakerySystem {
             String date = quantities[7];
             String orderStoreId = quantities[0];
 
+            // calculate the sale of the everyday in the week
             if (storeId.strip().equalsIgnoreCase(orderStoreId)) {
                 if (checkIfInLastMonth(date)) {
                     String day = getWeek(date);
@@ -989,6 +1065,7 @@ public class BakerySystem {
                 }
             }
         }
+        // find the day that has the most sale
         ArrayList<String> topDays = new ArrayList<>();
         double topTotal = 0;
         for (Map.Entry<String, Double> entry : daysSold.entrySet()) {
@@ -1011,7 +1088,12 @@ public class BakerySystem {
         System.out.println(topTotal);
     }
 
-
+    /**
+     * This method is used to generate report of the food items that are low in the inventory
+     * @param store the store which need generate report
+     * @param foodList list of the food items
+     * @param lowInventory the bar of low inventory
+     */
     public void generateReportOfLowInventory(Store store, List<FoodItem> foodList, int lowInventory) {
         System.out.println("Food items low in inventory: ");
         System.out.println("Id    " + "Name                    " + "Quantity ");
@@ -1033,6 +1115,11 @@ public class BakerySystem {
         }
     }
 
+    /**
+     * This method is used to generate the number of the coffee sold in the last month
+     * @param foodList list of the food items
+     * @param storeId the Id of the store which need generate report
+     */
     public void generateReportOfSoldCoffee(List<FoodItem> foodList, String storeId) {
         List<String> orders = readFile("order.csv");
         int totalNum = 0;
@@ -1066,6 +1153,10 @@ public class BakerySystem {
         System.out.println("Total number of coffee sold in last month is: " + totalNum);
     }
 
+    /**
+     * the method is used to generate the number of coffee bean sold in last month
+     * @param storeId the Id of the store which need generate report
+     */
     public void generateReportOfSoldCoffeeBean(String storeId) {
         List<String> orders = readFile("order.csv");
         int totalNum = 0;
@@ -1094,6 +1185,10 @@ public class BakerySystem {
         System.out.println("Total number of coffee bean sold in last month is: " + totalNum);
     }
 
+    /**
+     * This method is used to generate report that shows the number of food items sold in the last month
+     * @param storeId the Id of the store which need generate report
+     */
     public void generateReportOfSoldFoodItem(String storeId) {
         List<String> orders = readFile("order.csv");
         int totalNum = 0;
@@ -1114,6 +1209,10 @@ public class BakerySystem {
         System.out.println("Total number of sold items in last month is: " + totalNum);
     }
 
+    /**
+     * This method is used to generate report of the total sale of last month
+     * @param storeId the Id of the store which need generate report
+     */
     public void generateReportOfTotalSold(String storeId) {
         List<String> orders = readFile("order.csv");
         double totalSale = 0;
@@ -1134,6 +1233,12 @@ public class BakerySystem {
         System.out.println(totalSale);
     }
 
+    /**
+     * The method is used to generate the report,
+     * which shows the type of coffee sold most in the last month
+     * @param foodList list of food items
+     * @param storeId the Id of the store which need generate report
+     */
     public void generateReportOfTypeOfCoffeeSoldMost(List<FoodItem> foodList, String storeId) {
         List<String> orders = readFile("order.csv");
         Map<String, Integer> coffeeSold = new HashMap<>();
@@ -1191,6 +1296,11 @@ public class BakerySystem {
         System.out.println(topQuantity);
     }
 
+    /**
+     * This method is used to generate right report based on the chose of the user
+     * @param currentUser User object represent the current user of the program
+     * @param store the store which need generate report
+     */
     public void generateReport(User currentUser, Store store) {
         int choice = chooseReport();
         updateNewestInventory(store);
@@ -1248,6 +1358,11 @@ public class BakerySystem {
         previousOption(currentUser, u -> generateReport(currentUser, store));
     }
 
+    /**
+     * This method is used to get the week based on the date
+     * @param dates the date
+     * @return the day of week
+     */
     public String getWeek(String dates) {
         String strWeek;
 

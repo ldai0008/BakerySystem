@@ -1,7 +1,17 @@
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * @version: V1.0
+ * @author: Team_04
+ * @className: UserInterface
+ * @description: interface of the application
+ * @data: 2020-11-1 9:00
+ **/
 public class UserInterface {
+    /**
+     * This method is used to display title of the Bake shop.
+     */
     public static void displayBakeShop() {
         System.out.println("=======================================");
         System.out.println("|                                     |");
@@ -10,6 +20,9 @@ public class UserInterface {
         System.out.println("=======================================");
     }
 
+    /**
+     * This method is used to display the option of create advanced order.
+     */
     public static String displayCreateAdvanceOrderOption() {
         String option;
         boolean optionCheck = true;
@@ -27,6 +40,9 @@ public class UserInterface {
         return option;
     }
 
+    /**
+     * This method is used to display the option of create new order.
+     */
     public static String displayCreateOrderOption() {
         String option;
         boolean optionCheck = true;
@@ -44,6 +60,9 @@ public class UserInterface {
         return option;
     }
 
+    /**
+     * This method is used to display the option on the home screen.
+     */
     public static void displayHomeScreen(String userName, String userType, String storeID) {
         displayBakeShop();
         System.out.println("    *****Welcome, " + userName + "(" + userType + ")*****");
@@ -91,11 +110,18 @@ public class UserInterface {
 
     }
 
+    /**
+     * This method is used to display the error message of the Login.
+     */
     public static void displayLoginError() {
         System.out.println("!Error: User is not valid!");
         System.out.println("***************************************\n"
                 + "Please try login again.or contact the owner to reset the password.");
     }
+
+    /**
+     * This method is used to display the title of the report.
+     */
     public static void displayReportTitle(LocalDate reportDate, String reportName, String reportType, String storeID) {
         UserInterface.displayBakeShop();
         System.out.println("Report: ");
@@ -105,6 +131,10 @@ public class UserInterface {
         System.out.println("storeId: " + storeID);
         System.out.println("****************************************");
     }
+
+    /**
+     * This method is used to display the option of all reports.
+     */
     public static void displayTrackBusinessOption() {
         displayBakeShop();
         System.out.println("-- Please select one option by entering the number:");
@@ -118,6 +148,9 @@ public class UserInterface {
         System.out.println("8. Back to home screen");
     }
 
+    /**
+     * This method is used to display login option.
+     */
     public static boolean login(BakerySystem bakerySystem) {
         Scanner console = new Scanner(System.in);
         System.out.println("--Enter your employee id or email:");
@@ -136,8 +169,9 @@ public class UserInterface {
 
     }
 
-
-
+    /**
+     * This method is the entry point of this java program.
+     */
     public static void main(String[] args) {
         while (true) {
             BakerySystem bakerySystem = new BakerySystem();

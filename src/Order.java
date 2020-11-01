@@ -1,6 +1,13 @@
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @version: V1.0
+ * @author: Team_04
+ * @className: Order
+ * @description: Entity Class for Order
+ * @data: 2020-11-1 9:00
+ **/
 public class Order {
 
 	private String orderDate;
