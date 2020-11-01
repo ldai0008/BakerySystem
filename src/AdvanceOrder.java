@@ -1,6 +1,8 @@
 import java.util.Map;
 
 public class AdvanceOrder extends Order{
+
+    // The Phone number of the customer for advance order
     private String customerPhone;
     /**
      * Constructor for objects of class AdvanceOrder
