@@ -8,7 +8,7 @@ import java.util.List;
  * @data: 2020-11-1 9:00
  **/
 public class Bakery {
-
+	// The list of store for Bakery
 	private ArrayList<Store> listOfStore;
 	/**
 	 * Constructor for objects of class Bakery
