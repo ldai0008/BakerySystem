@@ -6,7 +6,15 @@
  * @data: 2020-11-1 9:00
  **/
 public class User {
-
+	// The id of user for User
+	// The name of user for User
+	// The email of user for User
+	// The password of user for User
+	// The tax file number of employee for User
+	// The residential address of employee for User
+	// The contact number of user for User
+	// The type of user for User
+	// The status of user for User
 	protected Integer userId;
 	protected String userName;
 	protected String userEmail;
