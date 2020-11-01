@@ -101,7 +101,7 @@ public class BakerySystem {
             // Writing the data in CSV format
             out = new BufferedWriter(new FileWriter(fileName, true));
             out.write(currentStore.getStoreId() + "," + aOrder.getOrderId() + ","
-                    + bakery.getListOfStore().get(0).getListOfUser().get(0).getUserId() + "," + n + "," + q + "," + p
+                    + currentStore.getListOfUser().get(0).getUserId() + "," + n + "," + q + "," + p
                     + "," + aOrder.getTotalCost() + "," + aOrder.getOrderDate() + "," + aOrder.getOrderTime() + ","
                     + aOrder.getNameOfCustomer() + "," + aOrder.getOrderStatus() + "," + aOrder.getCustomerPhone() + ","
                     + aOrder.getLastModifiedBy() + "," + aOrder.getLastModifiedDate() + ","
@@ -1168,6 +1168,7 @@ public class BakerySystem {
         List<String> orders = readFile("order.csv");
         int totalNum = 0;
         for (String order : orders) {
+            // split the string using |
             String[] quantities = order.split(",");
             String[] items = quantities[3].split("\\|");
             String[] quantity = quantities[4].split("\\|");
@@ -1288,6 +1289,7 @@ public class BakerySystem {
         }
         ArrayList<String> topItem = new ArrayList<>();
         int topQuantity = 0;
+        // find the top coffee
         for (Map.Entry<String, Integer> entry : coffeeSold.entrySet()) {
             if (entry.getValue() > topQuantity) {
                 topQuantity = entry.getValue();
@@ -1315,6 +1317,7 @@ public class BakerySystem {
     public void generateReport(User currentUser, Store store) {
         int choice = chooseReport();
         updateNewestInventory(store);
+        // According to different option ,generate different report
         if (choice == 1) {
             Report reportOfLowInventory = new Report(LocalDate.now(), "items low in inventory",
                     "inventory report", store);
