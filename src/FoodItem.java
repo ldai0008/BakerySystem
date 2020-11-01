@@ -6,7 +6,10 @@
  * @data: 2020-11-1 9:00
  **/
 public class FoodItem {
-
+	// The number of item for FoodItem
+	// The name of food item for FoodItem
+	// The food type for FoodItem
+	// The current price of food for FoodItem
 	private String itemNumber;
 	private String foodItemName;
 	private String foodType;
