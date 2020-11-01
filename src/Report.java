@@ -7,7 +7,10 @@ import java.time.LocalDate;
  * @data: 2020-11-1 9:00
  **/
 public class Report {
-
+	// The date of report for Report
+	// The name of report for Report
+	// The type of report for Report
+	// The store for Report
 	private LocalDate dateOfReport;
 	private String nameOfReport;
 	private String typeOfReport;
