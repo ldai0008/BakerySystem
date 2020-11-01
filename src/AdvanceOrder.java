@@ -1,5 +1,12 @@
 import java.util.Map;
 
+/**
+ * @version: V1.0
+ * @author: Team_04
+ * @className: AdvanceOrder
+ * @description: Entity Class for Advance Order
+ * @data: 2020-11-1 9:00
+ **/
 public class AdvanceOrder extends Order{
 
     // The Phone number of the customer for advance order

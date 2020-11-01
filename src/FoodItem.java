@@ -1,3 +1,10 @@
+/**
+ * @version: V1.0
+ * @author: Team_04
+ * @className: FoodItem
+ * @description: Entity Class for food item
+ * @data: 2020-11-1 9:00
+ **/
 public class FoodItem {
 
 	private String itemNumber;

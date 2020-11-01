@@ -1,3 +1,10 @@
+/**
+ * @version: V1.0
+ * @author: Team_04
+ * @className: User
+ * @description: Entity Class for User
+ * @data: 2020-11-1 9:00
+ **/
 public class User {
 
 	protected Integer userId;

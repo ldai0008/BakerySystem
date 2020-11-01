@@ -5,7 +5,7 @@ import java.util.Map;
  * @version: V1.0
  * @author: Team_04
  * @className: Order
- * @description: Entity Class for Order
+ * @description: Entity Class for order
  * @data: 2020-11-1 9:00
  **/
 public class Order {

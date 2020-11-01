@@ -1,3 +1,10 @@
+/**
+ * @version: V1.0
+ * @author: Team_04
+ * @className: Inventory
+ * @description: Entity Class for inventory
+ * @data: 2020-11-1 9:00
+ **/
 public class Inventory {
 
 	private String itemNumber;

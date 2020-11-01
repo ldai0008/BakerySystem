@@ -1,6 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @version: V1.0
+ * @author: Team_04
+ * @className: Bakery
+ * @description: Entity Class for bakery
+ * @data: 2020-11-1 9:00
+ **/
 public class Bakery {
 
 	private ArrayList<Store> listOfStore;

@@ -1,5 +1,11 @@
 import java.time.LocalDate;
-
+/**
+ * @version: V1.0
+ * @author: Team_04
+ * @className: Report
+ * @description: Entity Class for report
+ * @data: 2020-11-1 9:00
+ **/
 public class Report {
 
 	private LocalDate dateOfReport;
