@@ -26,7 +26,6 @@ public class BakerySystem {
      * Default constructor
      */
     public BakerySystem() {
-        super();
         this.bakery = new Bakery();
         this.foodList = new ArrayList<>();
     }
@@ -460,8 +459,11 @@ public class BakerySystem {
      * @return
      *        a string represents the current date
      */
-    public String getDate() {
-        return LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
+    public String getDate(){
+        Date date = new Date();
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        String dateString = sf.format(date);
+        return dateString;
     }
 
     /**
@@ -469,8 +471,11 @@ public class BakerySystem {
      * @return
      *        a string represents the current time
      */
-    public String getTime() {
-        return LocalTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME);
+    public String getTime(){
+        Date time = new Date();
+        SimpleDateFormat sf = new SimpleDateFormat("HH:mm:ss");
+        String timeString = sf.format(time);
+        return timeString;
     }
 
     /**

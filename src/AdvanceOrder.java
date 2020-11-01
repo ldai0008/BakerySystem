@@ -38,4 +38,5 @@ public class AdvanceOrder extends Order{
     public void setCustomerPhone(String customerPhone) {
         this.customerPhone = customerPhone;
     }
+
 }
