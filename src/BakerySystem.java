@@ -41,6 +41,7 @@ public class BakerySystem {
     /**
      * Set Bakery
      * @param bakery
+     *        a Bakery type object represents the whole bakery system
      */
     public void setBakery(Bakery bakery) {
         this.bakery = bakery;
@@ -49,6 +50,7 @@ public class BakerySystem {
     /**
      * get FoodList
      * @return foodList
+     *         a list of food items recorded for all bakery stores
      */
     public List<FoodItem> getFoodList() {
         return foodList;
@@ -57,6 +59,7 @@ public class BakerySystem {
     /**
      * set FoodList
      * @param foodList
+     *        list of food items recorded for all bakery stores
      */
     public void setFoodList(List<FoodItem> foodList) {
         this.foodList = foodList;
