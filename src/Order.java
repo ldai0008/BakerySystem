@@ -9,7 +9,16 @@ import java.util.Map;
  * @data: 2020-11-1 9:00
  **/
 public class Order {
-
+	// The date of order for Order
+	// The ID of order for Order
+	// The time of order for Order
+	// The status of order for Order
+	// The quantity for Order
+	// The total cost for Order
+	// The last modified date for Order
+	// The last modified time for Order
+	// The name of customer for Order
+	// The people who last modified for Order
 	private String orderDate;
 	private String orderId;
 	private String orderTime;
